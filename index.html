@@ -1,13 +1,28 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wego Medika Indonesia – Creating Value in Healthcare</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<noscript><style>
+  /* Scroll reveals are JS-driven — without it, show everything immediately. */
+  .reveal,.reveal-group>*,.value-card,.partner-card,.logo-wall-item,.loc-card{opacity:1!important;transform:none!important;}
+</style></noscript>
 </head>
 <body>
+
+<div class="scroll-prog" id="scrollProg"></div>
+
+<!-- ═══════════════ TOPBAR ═══════════════ -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="https://wa.me/6281234567890" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" fill="currentColor" stroke="none"/></svg>(021) 350 3011</a>
+    <a href="mailto:info@wegomedika.com"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>info@wegomedika.com</a>
+    <a onclick="showPage('locations')"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span data-i18n="topbar.location">Our Location</span></a>
+  </div>
+</div>
 
 <!-- ═══════════════ NAV ═══════════════ -->
 <nav id="mainNav">
@@ -16,100 +31,95 @@
       <img src="https://wegomedika.com/wp-content/uploads/2020/03/cropped-Logo-wego-trace-3-230x91.png" alt="Wego Medika Indonesia">
     </div>
     <div class="nav-links">
-      <a onclick="showPage('home')" data-page="home">Home</a>
-      <a onclick="showPage('home','about')" data-page="home">About</a>
-      <a onclick="showPage('products')" data-page="products">Products</a>
-      <a onclick="showPage('locations')" data-page="locations">Locations</a>
-      <a onclick="showPage('career')" data-page="career">Career</a>
-      <a onclick="showPage('contact')" data-page="contact">Contact</a>
-      <a href="https://wa.me/6281234567890?text=Halo%20Wego%20Medika" target="_blank" class="nav-cta">Hubungi Kami</a>
+      <a onclick="showPage('home')" data-page="home" data-i18n="nav.home">Home</a>
+      <a onclick="showPage('home','about')" data-page="home" data-i18n="nav.about">About</a>
+      <a onclick="showPage('products')" data-page="products" data-i18n="nav.products">Products</a>
+      <a onclick="showPage('locations')" data-page="locations" data-i18n="nav.locations">Locations</a>
+      <a onclick="showPage('career')" data-page="career" data-i18n="nav.career">Career</a>
+      <a onclick="showPage('contact')" data-page="contact" data-i18n="nav.contact">Contact</a>
+      <div class="lang-switch" id="langSwitch">
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="zh" onclick="setLang('zh')">中文</button>
+      </div>
+      <a href="https://wa.me/6281234567890?text=Halo%20Wego%20Medika" target="_blank" class="nav-cta" data-i18n="nav.cta">Contact Us</a>
     </div>
-    <button class="hamburger" onclick="toggleMob()" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="hamburger" id="hamburger" onclick="toggleMob()" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </nav>
 <div class="mob-menu" id="mobMenu">
-  <a onclick="showPage('home');closeMob()">Home</a>
-  <a onclick="showPage('home','about');closeMob()">About</a>
-  <a onclick="showPage('products');closeMob()">Products</a>
-  <a onclick="showPage('locations');closeMob()">Locations</a>
-  <a onclick="showPage('career');closeMob()">Career</a>
-  <a onclick="showPage('contact');closeMob()">Contact</a>
-  <a href="https://wa.me/6281234567890" target="_blank">Hubungi Kami</a>
+  <a onclick="showPage('home');closeMob()" data-i18n="nav.home">Home</a>
+  <a onclick="showPage('home','about');closeMob()" data-i18n="nav.about">About</a>
+  <a onclick="showPage('products');closeMob()" data-i18n="nav.products">Products</a>
+  <a onclick="showPage('locations');closeMob()" data-i18n="nav.locations">Locations</a>
+  <a onclick="showPage('career');closeMob()" data-i18n="nav.career">Career</a>
+  <a onclick="showPage('contact');closeMob()" data-i18n="nav.contact">Contact</a>
+  <a href="https://wa.me/6281234567890" target="_blank" data-i18n="nav.cta">Contact Us</a>
+  <div class="mob-lang-switch" id="mobLangSwitch">
+    <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" data-lang="zh" onclick="setLang('zh')">中文</button>
+  </div>
 </div>
 
 <!-- ═══════════════ PAGE: HOME ═══════════════ -->
 <div id="page-home" class="page active">
 
-  <div class="hero">
-    <div class="hero-inner">
-      <div>
-        <div class="hero-ey">Trusted Medical Distributor</div>
-        <h1>Healthcare solutions built on <em>trust</em> and quality</h1>
-        <p class="hero-desc">Wego Medika Indonesia adalah perusahaan distributor alat kesehatan yang menghubungkan produsen alat medis kelas dunia dengan rumah sakit, klinik, dan laboratorium di seluruh Indonesia. Sejak 2012, kami fokus menyediakan produk diagnostik, kardiovaskular, dan medical disposable berkualitas tinggi dengan layanan yang cepat dan tepercaya.</p>
-        <div class="hero-acts">
-          <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20medis%20Wego%20Medika" class="btn-p" target="_blank">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
-            Hubungi via WhatsApp
-          </a>
-          <button class="btn-s" onclick="showPage('products')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-            Lihat Katalog Produk
-          </button>
-        </div>
-        <div class="hero-stats">
-          <div><div class="hs-num">200<span>+</span></div><div class="hs-lbl">Rumah Sakit Dilayani</div></div>
-          <div><div class="hs-num">12<span>+</span></div><div class="hs-lbl">Tahun Pengalaman</div></div>
-          <div><div class="hs-num">4</div><div class="hs-lbl">Brand Internasional</div></div>
-        </div>
-      </div>
-      <div class="hero-vis">
-        <div class="hero-card">
-          <div class="hct"><div class="hct-lbl">Product Portfolio</div><div class="hct-badge">B2B Distributor</div></div>
-          <div class="hpg">
-            <div class="hpi"><div class="hpi-ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 20h8M12 18v2"/></svg></div><div><div class="hpi-nm">Abbott</div><div class="hpi-ct">Diagnostics</div></div></div>
-            <div class="hpi"><div class="hpi-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg></div><div><div class="hpi-nm">Cordis</div><div class="hpi-ct">Cardiology</div></div></div>
-            <div class="hpi"><div class="hpi-ic"><svg viewBox="0 0 24 24"><path d="M9 3v6l-5 9a2 2 0 002 3h12a2 2 0 002-3l-5-9V3"/><path d="M8 3h8"/></svg></div><div><div class="hpi-nm">WEGO</div><div class="hpi-ct">Syringes</div></div></div>
-            <div class="hpi"><div class="hpi-ic"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg></div><div><div class="hpi-nm">WEMED</div><div class="hpi-ct">Disposables</div></div></div>
-          </div>
-        </div>
-        <div class="hero-float">
-          <div class="hf-ic"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg></div>
-          <div><div class="hf-lbl">Certified & Trusted</div><div class="hf-val">Produk Tersertifikasi</div></div>
-        </div>
+  <div class="hero-banner">
+    <img src="assets/locations/hq_wisma67.jpg" alt="Wego Medika Indonesia" class="hero-bg">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-ey" data-i18n="home.hero.eyebrow">Trusted Medical Distributor</div>
+      <h1 data-i18n-html="home.hero.title">Healthcare Solutions Built on <em>Trust</em> & Quality</h1>
+      <p class="hero-desc" data-i18n="home.hero.desc">Wego Medika Indonesia is a medical device distribution company connecting world-class medical device manufacturers with hospitals, clinics, and laboratories across Indonesia. Since 2012, we have focused on providing high-quality diagnostic, cardiovascular, and medical disposable products.</p>
+      <div class="hero-acts">
+        <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20medis%20Wego%20Medika" class="btn-solid-white" target="_blank">
+          <span data-i18n="home.hero.btnWa">Contact via WhatsApp</span>
+          <svg width="18" height="14" viewBox="0 0 20 14" fill="currentColor"><path d="m13 14-1.4-1.4L16.2 8H0V6h16.2l-4.6-4.6L13 0l7 7z"/></svg>
+        </a>
+        <button class="btn-outline-white" onclick="showPage('products')">
+          <span data-i18n="home.hero.btnCatalog">View Product Catalog</span>
+          <svg width="18" height="14" viewBox="0 0 20 14" fill="currentColor"><path d="m13 14-1.4-1.4L16.2 8H0V6h16.2l-4.6-4.6L13 0l7 7z"/></svg>
+        </button>
       </div>
     </div>
+    <div class="hero-scroll" aria-hidden="true"><span data-i18n="home.hero.scroll">Scroll</span></div>
+  </div>
+  <div class="hero-stats-float" id="heroStats">
+    <div><div class="hs-num"><span class="cnt" data-count="200">200</span><span>+</span></div><div class="hs-lbl" data-i18n="stat.hospitalsServed">Hospitals Served</div></div>
+    <div><div class="hs-num"><span class="cnt" data-count="12">12</span><span>+</span></div><div class="hs-lbl" data-i18n="stat.yearsExperience">Years of Experience</div></div>
+    <div><div class="hs-num"><span class="cnt" data-count="4">4</span></div><div class="hs-lbl" data-i18n="stat.internationalBrands">International Brands</div></div>
+    <div><div class="hs-num"><span class="cnt" data-count="34">34</span><span>+</span></div><div class="hs-lbl" data-i18n="stat.citiesReached">Cities Reached</div></div>
   </div>
 
-  <section style="background:var(--gray-50)">
+  <section class="why-sec">
     <div class="sec-inner">
-      <div class="sec-hd"><div class="eyebrow">Why Wego Medika</div><h2 class="sec-title">Mitra terpercaya dalam pengadaan alat kesehatan</h2><p class="sec-desc">Kami hadir untuk memenuhi kebutuhan alat kesehatan berkualitas tinggi dengan harga kompetitif, menjangkau seluruh segmen layanan kesehatan di Indonesia.</p></div>
-      <div class="why-grid">
-        <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01z"/></svg></div><h3>Pengalaman & Reputasi Teruji</h3><p>Lebih dari 12 tahun menjadi distributor tepercaya alat kesehatan di Indonesia, dengan rekam jejak yang dapat dikonfirmasi langsung oleh rumah sakit dan mitra principal kami.</p></div>
-        <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><h3>Jangkauan Geografis Luas</h3><p>Jaringan distribusi menjangkau lebih dari 34 kota di seluruh Indonesia, memastikan produk sampai baik untuk kebutuhan nasional maupun penetrasi pasar di daerah Anda.</p></div>
-        <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27,6.96 12,12.01 20.73,6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><h3>Portofolio Produk yang Relevan</h3><p>Rangkaian produk kami mencakup diagnostik laboratorium, perangkat kardiovaskular, hingga medical disposable — disesuaikan dengan kebutuhan spesifik fasilitas kesehatan Anda.</p></div>
-        <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9,12 11,14 15,10"/></svg></div><h3>Kepatuhan Regulasi</h3><p>Kami memahami regulasi dan standar lokal secara mendalam, memastikan setiap produk yang kami distribusikan memenuhi persyaratan BPOM dan bebas dari hambatan masuk pasar.</p></div>
-        <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><h3>Dukungan Purna Jual</h3><p>Tim layanan pelanggan kami siap menangani setiap kendala dengan cepat dan tepat, menjaga kepuasan pelanggan sekaligus reputasi mitra kami.</p></div>
-        <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><h3>Pengiriman Cepat & Presisi</h3><p>Proses pengiriman yang cepat dan akurat, memastikan produk tiba tepat waktu dan sesuai spesifikasi di fasilitas Anda.</p></div>
+      <div class="sec-hd why-hd reveal"><div class="eyebrow" data-i18n="home.why.eyebrow">Why Wego Medika</div><h2 class="sec-title" data-i18n="home.why.title">A trusted partner in medical equipment procurement</h2><p class="sec-desc" data-i18n="home.why.desc">We are here to meet the need for high-quality medical equipment at competitive prices, reaching every segment of healthcare services in Indonesia.</p></div>
+      <div class="why-grid reveal-group" id="whyGrid">
+        <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01z"/></svg></div><h3 data-i18n="home.why.c1.title">Proven Experience & Reputation</h3><p data-i18n="home.why.c1.desc">More than 12 years as a trusted medical device distributor in Indonesia, with a track record that can be verified directly by our hospital and principal partners.</p></div>
+        <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><h3 data-i18n="home.why.c2.title">Wide Geographic Reach</h3><p data-i18n="home.why.c2.desc">Our distribution network reaches more than 34 cities across Indonesia, ensuring products arrive for both national needs and market penetration in your region.</p></div>
+        <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27,6.96 12,12.01 20.73,6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><h3 data-i18n="home.why.c3.title">Relevant Product Portfolio</h3><p data-i18n="home.why.c3.desc">Our product range covers laboratory diagnostics, cardiovascular devices, and medical disposables — tailored to the specific needs of your healthcare facility.</p></div>
+        <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9,12 11,14 15,10"/></svg></div><h3 data-i18n="home.why.c4.title">Regulatory Compliance</h3><p data-i18n="home.why.c4.desc">We have a deep understanding of local regulations and standards, ensuring every product we distribute meets BPOM requirements and faces no market-entry barriers.</p></div>
+        <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><h3 data-i18n="home.why.c5.title">After-Sales Support</h3><p data-i18n="home.why.c5.desc">Our customer service team is ready to handle any issue quickly and precisely, maintaining customer satisfaction and our partners' reputation.</p></div>
+        <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><h3 data-i18n="home.why.c6.title">Fast & Precise Delivery</h3><p data-i18n="home.why.c6.desc">A fast and accurate shipping process, ensuring products arrive on time and to specification at your facility.</p></div>
       </div>
-      <div class="cert-strip">
+      <div class="cert-strip reveal">
         <span class="cert-chip"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9,12 11,14 15,10"/></svg>ISO 9001:2015 Certified</span>
-        <span class="cert-chip"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9,12 11,14 15,10"/></svg>CDAKB Certified – Distributor Alat Kesehatan</span>
+        <span class="cert-chip"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9,12 11,14 15,10"/></svg><span data-i18n="home.why.cdakb">CDAKB Certified – Medical Device Distributor</span></span>
       </div>
     </div>
   </section>
 
   <section>
     <div class="sec-inner">
-      <div class="sec-hd"><div class="eyebrow">Company Values</div><h2 class="sec-title">Nilai-nilai yang kami junjung tinggi</h2><p class="sec-desc">Delapan nilai inti yang membentuk budaya kerja kami dan cara kami melayani setiap mitra, pelanggan, dan sesama karyawan.</p></div>
+      <div class="sec-hd reveal"><div class="eyebrow" data-i18n="home.values.eyebrow">Company Values</div><h2 class="sec-title" data-i18n="home.values.title">The values we uphold</h2><p class="sec-desc" data-i18n="home.values.desc">Eight core values that shape our work culture and how we serve every partner, customer, and fellow employee.</p></div>
       <div class="values-grid" id="valuesGrid">
-        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg></div><h3>Relationship</h3><p>We strive to create a good respect and fairness in long-term mutual relationship.</p></div>
-        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M8.7 13.7L7 22l5-3 5 3-1.7-8.3"/></svg></div><h3>Commitment</h3><p>We are dedicated to a high standard of quality in serving our external and internal customers.</p></div>
-        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9,12 11,14 15,10"/></svg></div><h3>Integrity</h3><p>We are committed to practicing day to day business with honesty & truthfulness — we treat others as we would like to be treated.</p></div>
-        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div><h3>Leadership</h3><p>Leadership is about how we react on every situation, take initiative & responsibility. Not making excuses.</p></div>
-        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><h3>Togetherness</h3><p>Together, we have the power to solve seemingly unsolvable problems. We do this every time.</p></div>
-        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div><h3>Simplicity</h3><p>It means being uncomplicated, easy to understand.</p></div>
-        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg></div><h3>Cost-Consciousness</h3><p>Knowing the cost of your decisions — questioning spending, and determining whether it's necessary to meet business requirement.</p></div>
-        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 00-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 000-7.8z"/></svg></div><h3>Belonging</h3><p>Protecting and caring for one another through open communication, responsiveness, and awareness — built on trust, respect, and accountability. It takes real effort, responsible chumminess, and keeping up with one another, sustained by loyalty, devotion, and solidarity.</p></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg></div><h3 data-i18n="value.relationship.title">Relationship</h3><p data-i18n="value.relationship.desc">We strive to create a good respect and fairness in long-term mutual relationship.</p></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M8.7 13.7L7 22l5-3 5 3-1.7-8.3"/></svg></div><h3 data-i18n="value.commitment.title">Commitment</h3><p data-i18n="value.commitment.desc">We are dedicated to a high standard of quality in serving our external and internal customers.</p></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9,12 11,14 15,10"/></svg></div><h3 data-i18n="value.integrity.title">Integrity</h3><p data-i18n="value.integrity.desc">We are committed to practicing day to day business with honesty & truthfulness — we treat others as we would like to be treated.</p></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div><h3 data-i18n="value.leadership.title">Leadership</h3><p data-i18n="value.leadership.desc">Leadership is about how we react on every situation, take initiative & responsibility. Not making excuses.</p></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><h3 data-i18n="value.togetherness.title">Togetherness</h3><p data-i18n="value.togetherness.desc">Together, we have the power to solve seemingly unsolvable problems. We do this every time.</p></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div><h3 data-i18n="value.simplicity.title">Simplicity</h3><p data-i18n="value.simplicity.desc">It means being uncomplicated, easy to understand.</p></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg></div><h3 data-i18n="value.costConsciousness.title">Cost-Consciousness</h3><p data-i18n="value.costConsciousness.desc">Knowing the cost of your decisions — questioning spending, and determining whether it's necessary to meet business requirement.</p></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 00-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 000-7.8z"/></svg></div><h3 data-i18n="value.belonging.title">Belonging</h3><p data-i18n="value.belonging.desc">Protecting and caring for one another through open communication, responsiveness, and awareness — built on trust, respect, and accountability. It takes real effort, responsible chumminess, and keeping up with one another, sustained by loyalty, devotion, and solidarity.</p></div>
       </div>
     </div>
   </section>
@@ -117,9 +127,9 @@
   <div class="partners-sec">
     <div class="partners-in">
       <div class="partners-hd">
-        <div class="eyebrow">Our Products</div>
-        <h2>Brand-brand terpercaya yang kami distribusikan</h2>
-        <p>Dari alat diagnostik laboratorium hingga perangkat kardiologi dan medical disposable — satu mitra untuk seluruh kebutuhan pengadaan alat kesehatan Anda.</p>
+        <div class="eyebrow" data-i18n="home.products.eyebrow">Our Products</div>
+        <h2 data-i18n="home.products.title">Trusted brands we distribute</h2>
+        <p data-i18n="home.products.desc">From laboratory diagnostic equipment to cardiology devices and medical disposables — one partner for all your medical equipment procurement needs.</p>
       </div>
       <div class="partners-grid" id="partnersGrid">
 
@@ -128,9 +138,9 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Abbott_Laboratories_logo.svg/320px-Abbott_Laboratories_logo.svg.png" alt="Abbott" onerror="this.parentElement.innerHTML='<svg viewBox=\'0 0 60 30\' style=\'width:60px\'><text x=\'50%\' y=\'55%\' text-anchor=\'middle\' dominant-baseline=\'middle\' font-family=\'Arial\' font-weight=\'bold\' font-size=\'14\' fill=\'%230066CC\'>ABBOTT</text></svg>'">
           </div>
           <h3>Abbott</h3>
-          <p>Pemimpin global dalam diagnostik laboratorium. Sistem Alinity dan Architect untuk hasil pemeriksaan klinis yang akurat dan efisien.</p>
+          <p data-i18n="home.products.abbott.desc">Global leader in laboratory diagnostics. Alinity and Architect systems for accurate and efficient clinical test results.</p>
           <span class="partner-tag">Diagnostics</span>
-          <span class="partner-link">Lihat produk →</span>
+          <span class="partner-link" data-i18n="home.products.viewLink">View products →</span>
         </div>
 
         <div class="partner-card" onclick="showPage('products','cordis')">
@@ -138,9 +148,9 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Cordis_logo.svg/320px-Cordis_logo.svg.png" alt="Cordis" onerror="this.parentElement.innerHTML='<svg viewBox=\'0 0 80 30\' style=\'width:80px\'><text x=\'50%\' y=\'55%\' text-anchor=\'middle\' dominant-baseline=\'middle\' font-family=\'Arial\' font-weight=\'bold\' font-size=\'14\' fill=\'%23E31837\'>CORDIS</text></svg>'">
           </div>
           <h3>Cordis</h3>
-          <p>Spesialis perangkat kardiovaskular dengan rekam jejak global. Catheter, stent, dan guide wire untuk prosedur intervensi jantung.</p>
+          <p data-i18n="home.products.cordis.desc">Cardiovascular device specialist with a global track record. Catheters, stents, and guide wires for cardiac intervention procedures.</p>
           <span class="partner-tag">Cardiology</span>
-          <span class="partner-link">Lihat produk →</span>
+          <span class="partner-link" data-i18n="home.products.viewLink">View products →</span>
         </div>
 
         <div class="partner-card" onclick="showPage('products','wego')">
@@ -148,9 +158,9 @@
             <svg viewBox="0 0 80 40" width="70"><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-weight="900" font-size="22" fill="#1A5FA8">WEGO</text></svg>
           </div>
           <h3>WEGO</h3>
-          <p>Produsen syringe dan medical disposable berkualitas tinggi. Produk steril presisi untuk kebutuhan klinis harian di seluruh dunia.</p>
-          <span class="partner-tag">Medical Disposable</span>
-          <span class="partner-link">Lihat produk →</span>
+          <p data-i18n="home.products.wego.desc">Manufacturer of high-quality syringes and medical disposables. Precision sterile products for daily clinical needs worldwide.</p>
+          <span class="partner-tag" data-i18n="cat.medicalDisposable">Medical Disposable</span>
+          <span class="partner-link" data-i18n="home.products.viewLink">View products →</span>
         </div>
 
         <div class="partner-card" onclick="showPage('products','wemed')">
@@ -158,22 +168,22 @@
             <svg viewBox="0 0 90 40" width="80"><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-weight="900" font-size="20" fill="#2C3A4A">WEMED</text></svg>
           </div>
           <h3>WEMED</h3>
-          <p>Perlengkapan medis disposable komprehensif untuk mendukung operasional fasilitas kesehatan. Andal, terjangkau, dan terstandar.</p>
-          <span class="partner-tag">Healthcare Supplies</span>
-          <span class="partner-link">Lihat produk →</span>
+          <p data-i18n="home.products.wemed.desc">Comprehensive disposable medical supplies to support healthcare facility operations. Reliable, affordable, and standardized.</p>
+          <span class="partner-tag" data-i18n="cat.healthcareSupplies">Healthcare Supplies</span>
+          <span class="partner-link" data-i18n="home.products.viewLink">View products →</span>
         </div>
 
       </div>
       <div class="partners-note">
-        <p>Tertarik dengan produk dari partner kami? <a onclick="showPage('contact')">Hubungi tim kami</a> untuk mendapatkan penawaran dan informasi lebih lanjut.</p>
-        <button class="btn-w" onclick="showPage('products')">Buka Katalog Lengkap <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></button>
+        <p><span data-i18n="home.products.note1">Interested in products from our partners?</span> <a onclick="showPage('contact')" data-i18n="home.products.note2">Contact our team</a> <span data-i18n="home.products.note3">for offers and further information.</span></p>
+        <button class="btn-w" onclick="showPage('products')"><span data-i18n="home.products.catalogBtn">View Full Catalog</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></button>
       </div>
     </div>
   </div>
 
   <section class="logo-wall-sec">
     <div class="sec-inner">
-      <div class="sec-hd" style="text-align:center;max-width:600px;margin:0 auto 0"><div class="eyebrow">Our Customers</div><h2 class="sec-title">Dipercaya oleh klien terkemuka</h2><p class="sec-desc" style="margin:0 auto">Kepercayaan dari berbagai institusi dan perusahaan menjadi bukti komitmen kami dalam memberikan layanan terbaik.</p></div>
+      <div class="sec-hd center reveal"><div class="eyebrow" data-i18n="home.customers.eyebrow">Our Customers</div><h2 class="sec-title" data-i18n="home.customers.title">Trusted by leading clients</h2><p class="sec-desc" data-i18n="home.customers.desc">The trust of various institutions and companies is proof of our commitment to delivering the best service.</p></div>
       <div class="logo-wall-grid" id="customersGrid">
         <div class="logo-wall-item"><img src="https://wegomedika.com/wp-content/uploads/2020/04/biosensor.png" alt="Biosensors International"></div>
         <div class="logo-wall-item"><img src="https://wegomedika.com/wp-content/uploads/2020/04/GGM.png" alt="GGM"></div>
@@ -183,7 +193,7 @@
 
   <section class="logo-wall-sec" style="background:var(--gray-50)">
     <div class="sec-inner">
-      <div class="sec-hd" style="text-align:center;max-width:600px;margin:0 auto 0"><div class="eyebrow">Our Partners</div><h2 class="sec-title">Didukung mitra operasional tepercaya</h2><p class="sec-desc" style="margin:0 auto">Kolaborasi dengan mitra logistik, kalibrasi, dan legal tepercaya memastikan operasional kami berjalan lancar dan sesuai standar.</p></div>
+      <div class="sec-hd center reveal"><div class="eyebrow" data-i18n="home.partners.eyebrow">Our Partners</div><h2 class="sec-title" data-i18n="home.partners.title">Supported by trusted operational partners</h2><p class="sec-desc" data-i18n="home.partners.desc">Collaboration with trusted logistics, calibration, and legal partners ensures our operations run smoothly and to standard.</p></div>
       <div class="logo-wall-grid" id="opPartnersGrid">
         <div class="logo-wall-item"><img src="https://wegomedika.com/wp-content/uploads/2020/04/GED.png" alt="GED Courier & Logistics"></div>
         <div class="logo-wall-item"><img src="https://wegomedika.com/wp-content/uploads/2020/04/Logo-Trikalibri-KAN.png" alt="Trikalibri Teknologi Indonesia"></div>
@@ -198,12 +208,12 @@
 
   <section class="process-sec">
     <div class="sec-inner">
-      <div class="sec-hd" style="text-align:center;max-width:600px;margin:0 auto 3rem"><div class="eyebrow">How It Works</div><h2 class="sec-title">Dari inquiry ke pengiriman, mudah dan cepat</h2></div>
+      <div class="sec-hd center reveal"><div class="eyebrow" data-i18n="home.how.eyebrow">How It Works</div><h2 class="sec-title" data-i18n="home.how.title">From inquiry to delivery, easy and fast</h2></div>
       <div class="proc-steps" id="procSteps">
-        <div class="proc-step"><div class="step-n">1</div><h3>Hubungi Kami</h3><p>Kirim inquiry via WhatsApp atau email dengan daftar produk yang Anda butuhkan.</p></div>
-        <div class="proc-step"><div class="step-n">2</div><h3>Konsultasi & Penawaran</h3><p>Tim kami merespons dalam 1×24 jam dengan penawaran harga dan spesifikasi produk.</p></div>
-        <div class="proc-step"><div class="step-n">3</div><h3>Konfirmasi Pesanan</h3><p>Setujui Purchase Order dan lakukan pembayaran sesuai ketentuan yang disepakati.</p></div>
-        <div class="proc-step"><div class="step-n">4</div><h3>Pengiriman</h3><p>Produk dikirim ke fasilitas Anda lengkap dengan dokumentasi dan sertifikat resmi.</p></div>
+        <div class="proc-step"><div class="step-n">1</div><h3 data-i18n="home.how.s1.title">Contact Us</h3><p data-i18n="home.how.s1.desc">Send an inquiry via WhatsApp or email with the list of products you need.</p></div>
+        <div class="proc-step"><div class="step-n">2</div><h3 data-i18n="home.how.s2.title">Consultation & Quotation</h3><p data-i18n="home.how.s2.desc">Our team responds within 1×24 hours with pricing and product specifications.</p></div>
+        <div class="proc-step"><div class="step-n">3</div><h3 data-i18n="home.how.s3.title">Order Confirmation</h3><p data-i18n="home.how.s3.desc">Approve the Purchase Order and make payment according to the agreed terms.</p></div>
+        <div class="proc-step"><div class="step-n">4</div><h3 data-i18n="home.how.s4.title">Delivery</h3><p data-i18n="home.how.s4.desc">Products are shipped to your facility complete with official documentation and certificates.</p></div>
       </div>
     </div>
   </section>
@@ -211,30 +221,40 @@
   <div class="about-sec" id="about">
     <div class="about-in">
       <div>
-        <div class="abt-ey">About Wego Medika</div>
-        <h2>Hampir <em>20 tahun</em> membangun kepercayaan di dunia kesehatan</h2>
-        <p>Berdiri sejak 11 April 2012, Wego Medika Indonesia hadir untuk menjawab kebutuhan produk medis disposable dengan kualitas tinggi dan harga kompetitif yang menjangkau seluruh segmen pelanggan di Indonesia.</p>
+        <div class="abt-ey" data-i18n="home.about.eyebrow">About Wego Medika</div>
+        <h2 data-i18n-html="home.about.title">Nearly <em>20 years</em> building trust in the healthcare industry</h2>
+        <p data-i18n="home.about.desc">Established on 11 April 2012, Wego Medika Indonesia was founded to meet the need for high-quality medical disposable products at competitive prices, reaching every customer segment in Indonesia.</p>
         <div class="abt-vals">
-          <div class="abt-val"><div class="abt-vi"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h4>Vision</h4><p>To be a premier provider of affordable, high-quality healthcare solutions.</p></div></div>
-          <div class="abt-val"><div class="abt-vi"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div><h4>Mission</h4><p>Driven by innovation, we partner with our clients to deliver exceptional healthcare services.</p></div></div>
+          <div class="abt-val"><div class="abt-vi"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h4 data-i18n="vmm.vision.title">Vision</h4><p data-i18n="vmm.vision.desc">To be a premier provider of affordable, high-quality healthcare solutions.</p></div></div>
+          <div class="abt-val"><div class="abt-vi"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div><h4 data-i18n="vmm.mission.title">Mission</h4><p data-i18n="vmm.mission.desc">Driven by innovation, we partner with our clients to deliver exceptional healthcare services.</p></div></div>
         </div>
       </div>
-      <div class="abt-stats">
-        <div class="abt-stat"><div class="abt-stat-n">200<span>+</span></div><div class="abt-stat-l">Rumah Sakit</div></div>
-        <div class="abt-stat"><div class="abt-stat-n">12<span>+</span></div><div class="abt-stat-l">Tahun Beroperasi</div></div>
-        <div class="abt-stat"><div class="abt-stat-n">4</div><div class="abt-stat-l">Brand Partner</div></div>
-        <div class="abt-stat"><div class="abt-stat-n">34<span>+</span></div><div class="abt-stat-l">Kota Dijangkau</div></div>
+      <div class="abt-stats reveal-group" id="abtStats">
+        <div class="abt-stat"><div class="abt-stat-n"><span class="cnt" data-count="200">200</span><span>+</span></div><div class="abt-stat-l" data-i18n="stat.hospitals">Hospitals</div></div>
+        <div class="abt-stat"><div class="abt-stat-n"><span class="cnt" data-count="12">12</span><span>+</span></div><div class="abt-stat-l" data-i18n="stat.yearsOperating">Years in Operation</div></div>
+        <div class="abt-stat"><div class="abt-stat-n"><span class="cnt" data-count="4">4</span></div><div class="abt-stat-l" data-i18n="stat.brandPartners">Brand Partners</div></div>
+        <div class="abt-stat"><div class="abt-stat-n"><span class="cnt" data-count="34">34</span><span>+</span></div><div class="abt-stat-l" data-i18n="stat.citiesReached">Cities Reached</div></div>
       </div>
     </div>
   </div>
 
+  <section class="branch-sec">
+    <div class="sec-inner">
+      <div class="sec-hd center reveal"><div class="eyebrow" data-i18n="home.branch.eyebrow">Our Branch</div><h2 class="sec-title" data-i18n="home.branch.title">Our reach across Indonesia</h2><p class="sec-desc" data-i18n="home.branch.desc">Our head office, branches, representative offices, and representative network are spread from Sumatra to Sulawesi to serve our partners more closely.</p></div>
+      <div class="branch-map-card reveal">
+        <img src="assets/coverage-map.jpg" alt="Wego Medika Indonesia Coverage Map" data-i18n-alt="home.branch.mapAlt">
+      </div>
+      <div class="branch-cta"><button class="btn-p" onclick="showPage('locations')"><span data-i18n="home.branch.btn">View Location Details</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></button></div>
+    </div>
+  </section>
+
   <div class="cta-sec">
-    <div class="cta-in">
-      <h2>Siap bermitra dengan kami?</h2>
-      <p>Diskusikan kebutuhan pengadaan alat kesehatan institusi Anda bersama tim Wego Medika.</p>
+    <div class="cta-in reveal">
+      <h2 data-i18n="home.cta.title">Ready to partner with us?</h2>
+      <p data-i18n="home.cta.desc">Discuss your institution's medical equipment procurement needs with the Wego Medika team.</p>
       <div class="cta-acts">
-        <a href="https://wa.me/6281234567890?text=Halo%20Wego%20Medika%2C%20saya%20ingin%20berdiskusi" class="wa-btn" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>Chat via WhatsApp</a>
-        <a href="mailto:info@wegomedika.com" class="email-btn"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Kirim Email</a>
+        <a href="https://wa.me/6281234567890?text=Halo%20Wego%20Medika%2C%20saya%20ingin%20berdiskusi" class="wa-btn" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg><span data-i18n="cta.chatWa">Chat via WhatsApp</span></a>
+        <a href="mailto:info@wegomedika.com" class="email-btn"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span data-i18n="home.cta.emailBtn">Send Email</span></a>
       </div>
     </div>
   </div>
@@ -245,27 +265,27 @@
 <div id="page-products" class="page">
   <div class="page-head">
     <div class="page-head-inner">
-      <div class="breadcrumb"><span onclick="showPage('home')">Home</span> &nbsp;/&nbsp; Products</div>
-      <h1>Katalog Produk</h1>
-      <p>Rangkaian alat kesehatan dan medical disposable dari brand terpercaya. Klik produk untuk detail, atau hubungi tim kami untuk penawaran harga.</p>
+      <div class="breadcrumb"><span onclick="showPage('home')" data-i18n="nav.home">Home</span> &nbsp;/&nbsp; <span data-i18n="nav.products">Products</span></div>
+      <h1 data-i18n="products.title">Product Catalog</h1>
+      <p data-i18n="products.desc">A range of medical equipment and medical disposables from trusted brands. Click a product for details, or contact our team for pricing.</p>
     </div>
   </div>
   <div class="cat-wrap">
     <aside class="sidebar">
       <div class="sb-block">
-        <h3>Cari Produk</h3>
-        <div class="srch-box"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="searchInput" placeholder="Ketik nama produk..." oninput="renderProducts()"></div>
+        <h3 data-i18n="products.search.title">Search Products</h3>
+        <div class="srch-box"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="searchInput" placeholder="Type product name..." data-i18n-placeholder="products.search.placeholder" oninput="renderProducts()"></div>
       </div>
-      <div class="sb-block"><h3>Kategori</h3><ul class="cat-list" id="catList"></ul></div>
+      <div class="sb-block"><h3 data-i18n="products.category.title">Category</h3><ul class="cat-list" id="catList"></ul></div>
       <div class="help-blk">
-        <h4>Butuh bantuan?</h4>
-        <p>Tim kami siap membantu Anda menemukan produk yang tepat.</p>
-        <a class="help-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20butuh%20bantuan%20memilih%20produk" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>Chat WhatsApp</a>
+        <h4 data-i18n="products.help.title">Need help?</h4>
+        <p data-i18n="products.help.desc">Our team is ready to help you find the right product.</p>
+        <a class="help-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20butuh%20bantuan%20memilih%20produk" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg><span data-i18n="products.help.chatBtn">Chat WhatsApp</span></a>
       </div>
     </aside>
     <main class="cat-main">
       <div class="toolbar">
-        <div><div class="cat-heading" id="catHeading">Semua Produk</div><div class="res-cnt" id="resultCount"></div></div>
+        <div><div class="cat-heading" id="catHeading">All Products</div><div class="res-cnt" id="resultCount"></div></div>
       </div>
       <div id="productContainer"></div>
     </main>
@@ -276,18 +296,18 @@
 <div id="page-locations" class="page">
   <div class="page-head">
     <div class="page-head-inner">
-      <div class="breadcrumb"><span onclick="showPage('home')">Home</span> &nbsp;/&nbsp; Locations</div>
-      <h1>Lokasi Kami</h1>
-      <p>Kantor pusat, cabang, kantor perwakilan, dan gudang kami tersebar di berbagai kota untuk melayani kebutuhan Anda lebih dekat.</p>
+      <div class="breadcrumb"><span onclick="showPage('home')" data-i18n="nav.home">Home</span> &nbsp;/&nbsp; <span data-i18n="nav.locations">Locations</span></div>
+      <h1 data-i18n="locations.title">Our Locations</h1>
+      <p data-i18n="locations.desc">Our head office, branches, representative offices, and warehouse are spread across various cities to serve your needs more closely.</p>
     </div>
   </div>
   <div class="loc-wrap">
 
     <div class="loc-group">
-      <div class="loc-group-hd"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><h2>Kantor Pusat</h2></div>
+      <div class="loc-group-hd"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><h2 data-i18n="locations.group.hq">Head Office</h2></div>
       <div class="loc-grid" id="locGridHQ">
         <div class="loc-card loc-hq">
-          <div class="loc-img"><img src="assets/locations/hq_wisma67.jpg" alt="Kantor Pusat Wisma 67"></div>
+          <div class="loc-img"><img src="assets/locations/hq_wisma67.jpg" alt="Head Office, Wisma 67"></div>
           <div class="loc-body">
             <span class="loc-badge">Head Quarter</span>
             <h3>Jakarta Pusat</h3>
@@ -298,10 +318,10 @@
     </div>
 
     <div class="loc-group">
-      <div class="loc-group-hd"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg><h2>Kantor Cabang</h2></div>
+      <div class="loc-group-hd"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg><h2 data-i18n="locations.group.branch">Branch Offices</h2></div>
       <div class="loc-grid" id="locGridBranch">
         <div class="loc-card">
-          <div class="loc-img"><img src="assets/locations/branch_medan.jpg" alt="Kantor Cabang Medan"></div>
+          <div class="loc-img"><img src="assets/locations/branch_medan.jpg" alt="Medan Branch Office"></div>
           <div class="loc-body">
             <span class="loc-badge">Branch Office</span>
             <h3>Medan</h3>
@@ -309,7 +329,7 @@
           </div>
         </div>
         <div class="loc-card">
-          <div class="loc-img"><img src="assets/locations/branch_makassar.jpg" alt="Kantor Cabang Makassar"></div>
+          <div class="loc-img"><img src="assets/locations/branch_makassar.jpg" alt="Makassar Branch Office"></div>
           <div class="loc-body">
             <span class="loc-badge">Branch Office</span>
             <h3>Makassar</h3>
@@ -320,10 +340,10 @@
     </div>
 
     <div class="loc-group">
-      <div class="loc-group-hd"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg><h2>Kantor Perwakilan</h2></div>
+      <div class="loc-group-hd"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg><h2 data-i18n="locations.group.rep">Representative Offices</h2></div>
       <div class="loc-grid" id="locGridRep">
         <div class="loc-card">
-          <div class="loc-img"><img src="assets/locations/rep_yogyakarta.jpg" alt="Kantor Perwakilan Yogyakarta"></div>
+          <div class="loc-img"><img src="assets/locations/rep_yogyakarta.jpg" alt="Yogyakarta Representative Office"></div>
           <div class="loc-body">
             <span class="loc-badge">Representative Office</span>
             <h3>Yogyakarta</h3>
@@ -331,7 +351,7 @@
           </div>
         </div>
         <div class="loc-card">
-          <div class="loc-img"><img src="assets/locations/rep_semarang.jpg" alt="Kantor Perwakilan Semarang"></div>
+          <div class="loc-img"><img src="assets/locations/rep_semarang.jpg" alt="Semarang Representative Office"></div>
           <div class="loc-body">
             <span class="loc-badge">Representative Office</span>
             <h3>Semarang</h3>
@@ -339,7 +359,7 @@
           </div>
         </div>
         <div class="loc-card">
-          <div class="loc-img"><img src="assets/locations/rep_surabaya.jpg" alt="Kantor Perwakilan Surabaya"></div>
+          <div class="loc-img"><img src="assets/locations/rep_surabaya.jpg" alt="Surabaya Representative Office"></div>
           <div class="loc-body">
             <span class="loc-badge">Representative Office</span>
             <h3>Surabaya</h3>
@@ -350,15 +370,34 @@
     </div>
 
     <div class="loc-group">
-      <div class="loc-group-hd"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27,6.96 12,12.01 20.73,6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg><h2>Gudang</h2></div>
+      <div class="loc-group-hd"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27,6.96 12,12.01 20.73,6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg><h2 data-i18n="locations.group.warehouse">Warehouse</h2></div>
       <div class="loc-grid" id="locGridWarehouse">
-        <div class="loc-card" style="grid-column:1/-1">
-          <div class="wh-gallery">
-            <img src="assets/locations/warehouse_1.jpg" alt="Gudang Jakarta Utara 1">
-            <img src="assets/locations/warehouse_2.jpg" alt="Gudang Jakarta Utara 2">
-            <img src="assets/locations/warehouse_3.jpg" alt="Gudang Jakarta Utara 3">
-            <img src="assets/locations/warehouse_4.jpg" alt="Gudang Jakarta Utara 4">
+        <div class="loc-card">
+          <div class="loc-img"><img src="assets/locations/warehouse_1.jpg" alt="North Jakarta Warehouse"></div>
+          <div class="loc-body">
+            <span class="loc-badge">Warehouse</span>
+            <h3>Jakarta Utara</h3>
+            <p>Jl. Kamal Muara V No. 30 Lt. Dasar, Kelurahan Kamal Muara, Kecamatan Penjaringan, Jakarta Utara</p>
           </div>
+        </div>
+        <div class="loc-card">
+          <div class="loc-img"><img src="assets/locations/warehouse_2.jpg" alt="North Jakarta Warehouse"></div>
+          <div class="loc-body">
+            <span class="loc-badge">Warehouse</span>
+            <h3>Jakarta Utara</h3>
+            <p>Jl. Kamal Muara V No. 30 Lt. Dasar, Kelurahan Kamal Muara, Kecamatan Penjaringan, Jakarta Utara</p>
+          </div>
+        </div>
+        <div class="loc-card">
+          <div class="loc-img"><img src="assets/locations/warehouse_3.jpg" alt="North Jakarta Warehouse"></div>
+          <div class="loc-body">
+            <span class="loc-badge">Warehouse</span>
+            <h3>Jakarta Utara</h3>
+            <p>Jl. Kamal Muara V No. 30 Lt. Dasar, Kelurahan Kamal Muara, Kecamatan Penjaringan, Jakarta Utara</p>
+          </div>
+        </div>
+        <div class="loc-card">
+          <div class="loc-img"><img src="assets/locations/warehouse_4.jpg" alt="North Jakarta Warehouse"></div>
           <div class="loc-body">
             <span class="loc-badge">Warehouse</span>
             <h3>Jakarta Utara</h3>
@@ -375,42 +414,42 @@
 <div id="page-contact" class="page">
   <div class="page-head">
     <div class="page-head-inner">
-      <div class="breadcrumb"><span onclick="showPage('home')">Home</span> &nbsp;/&nbsp; Contact</div>
-      <h1>Hubungi Kami</h1>
-      <p>Punya pertanyaan atau ingin meminta penawaran? Tim kami siap membantu. Hubungi kami melalui WhatsApp, telepon, atau kirim pesan di bawah.</p>
+      <div class="breadcrumb"><span onclick="showPage('home')" data-i18n="nav.home">Home</span> &nbsp;/&nbsp; <span data-i18n="nav.contact">Contact</span></div>
+      <h1 data-i18n="contact.title">Contact Us</h1>
+      <p data-i18n="contact.desc">Have a question or want a quote? Our team is ready to help. Reach us via WhatsApp, phone, or send a message below.</p>
     </div>
   </div>
   <div class="contact-wrap">
     <div class="info-card">
-      <h2>Informasi Kontak</h2>
-      <div class="info-item"><div class="ii-ic"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.29 6.29l1.28-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div><div><div class="ii-lbl">Telepon</div><div class="ii-val">T. (021) 350 3011</div></div></div>
+      <h2 data-i18n="contact.info.title">Contact Information</h2>
+      <div class="info-item"><div class="ii-ic"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.29 6.29l1.28-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div><div><div class="ii-lbl" data-i18n="contact.info.phone">Phone</div><div class="ii-val">T. (021) 350 3011</div></div></div>
       <div class="info-item"><div class="ii-ic"><svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></div><div><div class="ii-lbl">Fax</div><div class="ii-val">F. (021) 350 2667</div></div></div>
       <div class="info-item"><div class="ii-ic"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="ii-lbl">Email</div><div class="ii-val"><a href="mailto:info@wegomedika.com">info@wegomedika.com</a></div></div></div>
-      <div class="info-item"><div class="ii-ic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="ii-lbl">Alamat</div><div class="ii-val">Wisma 67, Jl. Tanah Abang II No. 67,<br>Petojo Selatan, Gambir,<br>Jakarta Pusat – 10160</div></div></div>
-      <div class="info-item" style="border:none;padding-bottom:0"><div class="ii-ic"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></div><div><div class="ii-lbl">Ikuti Kami</div><div class="socials-row">
-        <a class="soc-btn" href="https://www.instagram.com/wego_indonesia/?hl=en" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="var(--blue-600)" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-        <a class="soc-btn" href="https://www.linkedin.com/company/pt-wego-medika-indonesia/about/" target="_blank" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="var(--blue-600)" stroke-width="1.8"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-        <a class="soc-btn" href="https://wa.me/6281234567890" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="var(--wa)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      <div class="info-item"><div class="ii-ic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="ii-lbl" data-i18n="contact.info.address">Address</div><div class="ii-val">Wisma 67, Jl. Tanah Abang II No. 67,<br>Petojo Selatan, Gambir,<br>Jakarta Pusat – 10160</div></div></div>
+      <div class="info-item" style="border:none;padding-bottom:0"><div class="ii-ic"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></div><div><div class="ii-lbl" data-i18n="contact.info.followUs">Follow Us</div><div class="socials-row">
+        <a class="soc-btn soc-line" href="https://www.instagram.com/wego_indonesia/?hl=en" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a class="soc-btn soc-line" href="https://www.linkedin.com/company/pt-wego-medika-indonesia/about/" target="_blank" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a class="soc-btn soc-wa" href="https://wa.me/6281234567890" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
       </div></div></div>
-      <a class="big-wa" href="https://wa.me/6281234567890?text=Halo%20Wego%20Medika%2C%20saya%20ingin%20bertanya" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>Chat via WhatsApp</a>
+      <a class="big-wa" href="https://wa.me/6281234567890?text=Halo%20Wego%20Medika%2C%20saya%20ingin%20bertanya" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg><span data-i18n="cta.chatWa">Chat via WhatsApp</span></a>
     </div>
     <div class="form-card">
-      <h2>Kirim Pesan</h2>
-      <p class="form-sub">Isi formulir ini, lalu kirim langsung ke tim kami via WhatsApp atau email — tidak perlu menunggu.</p>
-      <div class="field"><label>Nama</label><input type="text" id="cf-name" placeholder="Nama Anda"></div>
-      <div class="field"><label>Institusi / Perusahaan</label><input type="text" id="cf-org" placeholder="Nama rumah sakit, klinik, atau perusahaan"></div>
-      <div class="field"><label>Email / No. Telepon</label><input type="text" id="cf-contact" placeholder="Agar kami bisa menghubungi balik"></div>
-      <div class="field"><label>Pesan</label><textarea id="cf-msg" placeholder="Tuliskan kebutuhan atau pertanyaan Anda..."></textarea></div>
+      <h2 data-i18n="contact.form.title">Send Message</h2>
+      <p class="form-sub" data-i18n="contact.form.sub">Fill out this form, then send it directly to our team via WhatsApp or email — no waiting required.</p>
+      <div class="field"><label data-i18n="contact.form.name">Name</label><input type="text" id="cf-name" placeholder="Your name" data-i18n-placeholder="contact.form.namePh"></div>
+      <div class="field"><label data-i18n="contact.form.org">Institution / Company</label><input type="text" id="cf-org" placeholder="Hospital, clinic, or company name" data-i18n-placeholder="contact.form.orgPh"></div>
+      <div class="field"><label data-i18n="contact.form.contact">Email / Phone Number</label><input type="text" id="cf-contact" placeholder="So we can reach you back" data-i18n-placeholder="contact.form.contactPh"></div>
+      <div class="field"><label data-i18n="contact.form.msg">Message</label><textarea id="cf-msg" placeholder="Write your needs or questions..." data-i18n-placeholder="contact.form.msgPh"></textarea></div>
       <div class="form-acts">
-        <button class="f-wa" onclick="sendWA()"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>Kirim via WhatsApp</button>
-        <button class="f-email" onclick="sendEmail()"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Kirim via Email</button>
+        <button class="f-wa" onclick="sendWA()"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg><span data-i18n="contact.form.sendWa">Send via WhatsApp</span></button>
+        <button class="f-email" onclick="sendEmail()"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span data-i18n="contact.form.sendEmail">Send via Email</span></button>
       </div>
-      <p class="form-note">Tombol di atas akan membuka WhatsApp atau email Anda dengan pesan yang sudah terisi otomatis.</p>
+      <p class="form-note" data-i18n="contact.form.note">The buttons above will open your WhatsApp or email with the message pre-filled automatically.</p>
     </div>
   </div>
   <div class="map-sec">
-    <div class="map-hd"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><h2>Lokasi Kami</h2></div>
-    <div class="map-frame"><iframe src="https://maps.google.com/maps?q=Wisma+67+Jl+Tanah+Abang+II+No+67+Jakarta+Pusat&t=m&z=16&output=embed" loading="lazy" title="Lokasi Wego Medika"></iframe></div>
+    <div class="map-hd"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><h2 data-i18n="contact.map.title">Our Location</h2></div>
+    <div class="map-frame"><iframe src="https://maps.google.com/maps?q=Wisma+67+Jl+Tanah+Abang+II+No+67+Jakarta+Pusat&t=m&z=16&output=embed" loading="lazy" title="Wego Medika Location"></iframe></div>
   </div>
 </div>
 
@@ -418,38 +457,38 @@
 <div id="page-career" class="page">
   <div class="page-head">
     <div class="page-head-inner">
-      <div class="breadcrumb"><span onclick="showPage('home')">Home</span> &nbsp;/&nbsp; Career</div>
+      <div class="breadcrumb"><span onclick="showPage('home')" data-i18n="nav.home">Home</span> &nbsp;/&nbsp; <span data-i18n="nav.career">Career</span></div>
       <h1>Growth With Us</h1>
-      <p>Wego Medika Indonesia hadir untuk menjawab kebutuhan produk medical disposable berkualitas tinggi. Tumbuh bersama kami dan jadilah bagian dari tim yang menciptakan nilai dalam dunia kesehatan.</p>
+      <p data-i18n="career.desc">Wego Medika Indonesia exists to meet the need for high-quality medical disposable products. Grow with us and become part of a team that creates value in healthcare.</p>
     </div>
   </div>
   <section>
     <div class="sec-inner">
-      <div class="sec-hd"><div class="eyebrow">Our Foundation</div><h2 class="sec-title">Visi, Misi, dan Motto kami</h2><p class="sec-desc">Nilai-nilai yang memandu setiap langkah kami dalam melayani mitra dan pelanggan di seluruh Indonesia.</p></div>
-      <div class="vmm-grid">
-        <div class="vmm-card"><div class="vmm-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 10v6M1 12h6m10 0h6"/></svg></div><h3>Vision</h3><p>To be a premier provider of affordable, high-quality healthcare solutions.</p></div>
-        <div class="vmm-card"><div class="vmm-ic"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg></div><h3>Mission</h3><p>Driven by innovation, we partner with our clients to deliver exceptional healthcare services.</p></div>
-        <div class="vmm-card"><div class="vmm-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Motto</h3><p><em>Creating value in healthcare</em> — menciptakan nilai nyata dalam setiap aspek layanan kesehatan yang kami berikan.</p></div>
+      <div class="sec-hd"><div class="eyebrow" data-i18n="career.foundation.eyebrow">Our Foundation</div><h2 class="sec-title" data-i18n="career.foundation.title">Our Vision, Mission, and Motto</h2><p class="sec-desc" data-i18n="career.foundation.desc">The values that guide every step we take in serving our partners and customers across Indonesia.</p></div>
+      <div class="vmm-grid reveal-group" id="vmmGrid">
+        <div class="vmm-card"><div class="vmm-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 10v6M1 12h6m10 0h6"/></svg></div><h3 data-i18n="vmm.vision.title">Vision</h3><p data-i18n="vmm.vision.desc">To be a premier provider of affordable, high-quality healthcare solutions.</p></div>
+        <div class="vmm-card"><div class="vmm-ic"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg></div><h3 data-i18n="vmm.mission.title">Mission</h3><p data-i18n="vmm.mission.desc">Driven by innovation, we partner with our clients to deliver exceptional healthcare services.</p></div>
+        <div class="vmm-card"><div class="vmm-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3 data-i18n="vmm.motto.title">Motto</h3><p data-i18n-html="vmm.motto.desc"><em>Creating value in healthcare</em> — creating real value in every aspect of the healthcare services we provide.</p></div>
       </div>
     </div>
   </section>
   <section style="background:var(--gray-50);border-top:1px solid var(--gray-200)">
     <div class="sec-inner">
-      <div class="sec-hd"><div class="eyebrow">We're Hiring</div><h2 class="sec-title">Posisi yang sedang kami cari</h2><p class="sec-desc">Saat ini kami membuka kesempatan untuk kandidat yang ingin berkembang bersama kami.</p></div>
-      <div class="pos-grid">
-        <div class="pos-card"><div class="pos-top"><div class="pos-ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></div><div><h3>Warehouse & Logistics</h3><div class="pos-tag">Operational</div></div></div><p>Mengelola penerimaan, penyimpanan, dan distribusi produk medis. Memastikan akurasi stok serta kelancaran pengiriman ke fasilitas kesehatan mitra.</p><div class="pos-meta"><span class="pos-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Jakarta Pusat</span><span class="pos-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>Full-time</span></div><a class="pos-apply" href="mailto:info@wegomedika.com?subject=Lamaran%20-%20Warehouse%20%26%20Logistics">Lamar Posisi Ini <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a></div>
-        <div class="pos-card"><div class="pos-top"><div class="pos-ic"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg></div><div><h3>Finance & Accounting</h3><div class="pos-tag">Finance</div></div></div><p>Menangani pencatatan keuangan, pelaporan, dan rekonsiliasi. Mendukung pengambilan keputusan dengan data finansial yang akurat dan tepat waktu.</p><div class="pos-meta"><span class="pos-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Jakarta Pusat</span><span class="pos-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>Full-time</span></div><a class="pos-apply" href="mailto:info@wegomedika.com?subject=Lamaran%20-%20Finance%20%26%20Accounting">Lamar Posisi Ini <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a></div>
-        <div class="pos-card"><div class="pos-top"><div class="pos-ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div><div><h3>Sales Admin</h3><div class="pos-tag">Sales Support</div></div></div><p>Mendukung tim penjualan dalam administrasi pesanan, dokumentasi, dan komunikasi pelanggan. Memastikan proses order berjalan rapi dan tepat waktu.</p><div class="pos-meta"><span class="pos-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Jakarta Pusat</span><span class="pos-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>Full-time</span></div><a class="pos-apply" href="mailto:info@wegomedika.com?subject=Lamaran%20-%20Sales%20Admin">Lamar Posisi Ini <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a></div>
-        <div class="pos-card"><div class="pos-top"><div class="pos-ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg></div><div><h3>Purchasing</h3><div class="pos-tag">Procurement</div></div></div><p>Mengelola pengadaan barang dari supplier, negosiasi harga, dan menjaga ketersediaan stok. Membangun relasi yang baik dengan vendor dan principal.</p><div class="pos-meta"><span class="pos-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Jakarta Pusat</span><span class="pos-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>Full-time</span></div><a class="pos-apply" href="mailto:info@wegomedika.com?subject=Lamaran%20-%20Purchasing">Lamar Posisi Ini <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a></div>
+      <div class="sec-hd"><div class="eyebrow" data-i18n="career.hiring.eyebrow">We're Hiring</div><h2 class="sec-title" data-i18n="career.hiring.title">Positions we're currently hiring for</h2><p class="sec-desc" data-i18n="career.hiring.desc">We are currently open to opportunities for candidates who want to grow with us.</p></div>
+      <div class="pos-grid reveal-group" id="posGrid">
+        <div class="pos-card"><div class="pos-top"><div class="pos-ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></div><div><h3>Warehouse & Logistics</h3><div class="pos-tag">Operational</div></div></div><p data-i18n="career.pos.warehouse.desc">Manage the receiving, storage, and distribution of medical products. Ensure stock accuracy and smooth delivery to partner healthcare facilities.</p><div class="pos-meta"><span class="pos-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Jakarta Pusat</span><span class="pos-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>Full-time</span></div><a class="pos-apply" href="mailto:info@wegomedika.com?subject=Application%20-%20Warehouse%20%26%20Logistics"><span data-i18n="career.applyBtn">Apply for This Position</span> <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a></div>
+        <div class="pos-card"><div class="pos-top"><div class="pos-ic"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg></div><div><h3>Finance & Accounting</h3><div class="pos-tag">Finance</div></div></div><p data-i18n="career.pos.finance.desc">Handle financial record-keeping, reporting, and reconciliation. Support decision-making with accurate and timely financial data.</p><div class="pos-meta"><span class="pos-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Jakarta Pusat</span><span class="pos-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>Full-time</span></div><a class="pos-apply" href="mailto:info@wegomedika.com?subject=Application%20-%20Finance%20%26%20Accounting"><span data-i18n="career.applyBtn">Apply for This Position</span> <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a></div>
+        <div class="pos-card"><div class="pos-top"><div class="pos-ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div><div><h3>Sales Admin</h3><div class="pos-tag">Sales Support</div></div></div><p data-i18n="career.pos.sales.desc">Support the sales team with order administration, documentation, and customer communication. Ensure the order process runs smoothly and on time.</p><div class="pos-meta"><span class="pos-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Jakarta Pusat</span><span class="pos-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>Full-time</span></div><a class="pos-apply" href="mailto:info@wegomedika.com?subject=Application%20-%20Sales%20Admin"><span data-i18n="career.applyBtn">Apply for This Position</span> <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a></div>
+        <div class="pos-card"><div class="pos-top"><div class="pos-ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg></div><div><h3>Purchasing</h3><div class="pos-tag">Procurement</div></div></div><p data-i18n="career.pos.purchasing.desc">Manage procurement of goods from suppliers, price negotiation, and stock availability. Build good relationships with vendors and principals.</p><div class="pos-meta"><span class="pos-chip"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Jakarta Pusat</span><span class="pos-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>Full-time</span></div><a class="pos-apply" href="mailto:info@wegomedika.com?subject=Application%20-%20Purchasing"><span data-i18n="career.applyBtn">Apply for This Position</span> <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg></a></div>
       </div>
     </div>
   </section>
   <div class="apply-sec">
     <div class="apply-in">
-      <div><h2>Tidak menemukan posisi yang cocok?</h2><p>Kami selalu terbuka untuk talenta hebat. Kirimkan CV dan surat lamaran Anda ke <a href="mailto:info@wegomedika.com">info@wegomedika.com</a> — tim HR kami akan meninjau dan menghubungi Anda jika ada kesempatan yang sesuai.</p></div>
+      <div><h2 data-i18n="career.apply.title">Can't find a suitable position?</h2><p><span data-i18n="career.apply.desc1">We are always open to great talent. Send your CV and cover letter to</span> <a href="mailto:info@wegomedika.com">info@wegomedika.com</a> <span data-i18n="career.apply.desc2">— our HR team will review it and contact you if a suitable opportunity arises.</span></p></div>
       <div class="apply-acts">
-        <a class="a-email" href="mailto:info@wegomedika.com?subject=Lamaran%20Kerja%20-%20General"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Kirim CV via Email</a>
-        <a class="a-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20bergabung%20dengan%20Wego%20Medika" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>Tanya via WhatsApp</a>
+        <a class="a-email" href="mailto:info@wegomedika.com?subject=Job%20Application%20-%20General"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span data-i18n="career.apply.emailBtn">Send CV via Email</span></a>
+        <a class="a-wa" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20bergabung%20dengan%20Wego%20Medika" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg><span data-i18n="career.apply.waBtn">Ask via WhatsApp</span></a>
       </div>
     </div>
   </div>
@@ -461,31 +500,31 @@
     <div class="ft-top">
       <div class="ft-brand">
         <div class="ft-logo"><img src="https://wegomedika.com/wp-content/uploads/2020/03/Logo-wego-trace-3.png" alt="Wego Medika Indonesia"></div>
-        <p>Distributor resmi produk medis disposable berkualitas tinggi untuk rumah sakit dan fasilitas kesehatan di seluruh Indonesia.</p>
+        <p data-i18n="footer.desc">Official distributor of high-quality medical disposable products for hospitals and healthcare facilities across Indonesia.</p>
         <div class="ft-ci"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Wisma 67, Jl. Tanah Abang II No. 67, Jakarta Pusat 10160</div>
         <div class="ft-ci"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>info@wegomedika.com</div>
         <div class="ft-ci"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.29 6.29l1.28-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>T. (021) 350 3011 · F. (021) 350 2667</div>
       </div>
       <div class="ft-col">
-        <h4>Navigation</h4>
-        <a onclick="showPage('home')">Home</a>
-        <a onclick="showPage('home','about')">About Us</a>
-        <a onclick="showPage('products')">Products</a>
-        <a onclick="showPage('locations')">Locations</a>
-        <a onclick="showPage('career')">Career</a>
-        <a onclick="showPage('contact')">Contact</a>
+        <h4 data-i18n="footer.nav">Navigation</h4>
+        <a onclick="showPage('home')" data-i18n="nav.home">Home</a>
+        <a onclick="showPage('home','about')" data-i18n="footer.aboutUs">About Us</a>
+        <a onclick="showPage('products')" data-i18n="nav.products">Products</a>
+        <a onclick="showPage('locations')" data-i18n="nav.locations">Locations</a>
+        <a onclick="showPage('career')" data-i18n="nav.career">Career</a>
+        <a onclick="showPage('contact')" data-i18n="nav.contact">Contact</a>
       </div>
       <div class="ft-col">
-        <h4>Product Brands</h4>
+        <h4 data-i18n="footer.brands">Product Brands</h4>
         <a onclick="showPage('products','abbott')">Abbott</a>
         <a onclick="showPage('products','cordis')">Cordis</a>
         <a onclick="showPage('products','wego')">WEGO</a>
         <a onclick="showPage('products','wemed')">WEMED</a>
       </div>
       <div class="ft-col">
-        <h4>Contact Us</h4>
+        <h4 data-i18n="footer.contactUs">Contact Us</h4>
         <a href="https://wa.me/6281234567890" target="_blank">WhatsApp Business</a>
-        <a href="mailto:info@wegomedika.com">Email Inquiry</a>
+        <a href="mailto:info@wegomedika.com" data-i18n="footer.emailInquiry">Email Inquiry</a>
         <a href="https://www.instagram.com/wego_indonesia/?hl=en" target="_blank">Instagram</a>
         <a href="https://www.linkedin.com/company/pt-wego-medika-indonesia/about/" target="_blank">LinkedIn</a>
       </div>
@@ -506,6 +545,17 @@
   <div class="modal" id="modalInner"></div>
 </div>
 
+<!-- ═══════════════ FLOATING ACTIONS ═══════════════ -->
+<div class="fab-stack">
+  <button class="fab fab-top" id="fabTop" onclick="goTop()" aria-label="Back to top">
+    <svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5,12 12,5 19,12"/></svg>
+  </button>
+  <a class="fab fab-wa" href="https://wa.me/6281234567890?text=Halo%20Wego%20Medika" target="_blank" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</div>
+
+<script src="i18n.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
