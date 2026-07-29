@@ -1,5 +1,5 @@
 const WA = "6281234567890";
-const BASE = "https://wegomedika.com/wp-content/uploads/2020/04/";
+const BASE = "assets/products/";
 const CI = BASE + "WhatsApp-Image-2020-04-07-at-14.01.06-300x150.jpeg";
 
 const PRODUCTS = [
