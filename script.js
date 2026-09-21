@@ -219,14 +219,25 @@ function imgFallback(img) {
 let activeCat = "all";
 
 // ── PAGE SWITCHING ──
-function showPage(page, anchor) {
+function showPage(page, anchor, updateHistory = true) {
+  if (!document.getElementById('page-' + page)) return;
+  if (updateHistory) {
+    const routeAnchor = page === 'products' ? (anchor || activeCat) : anchor;
+    const hash = '#' + page + (routeAnchor ? '/' + routeAnchor : '');
+    if (location.hash !== hash) history.pushState(null, '', hash);
+  }
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + page).classList.add('active');
-  document.querySelectorAll('.nav-links a[data-page]').forEach(a => a.classList.toggle('active', a.dataset.page === page));
+  document.querySelectorAll('.nav-links a[data-page]').forEach(a => {
+    const active = a.dataset.page === page && (a.dataset.anchor || '') === (anchor && page === 'home' ? anchor : '');
+    a.classList.toggle('active', active);
+    if (active) a.setAttribute('aria-current', 'page');
+    else a.removeAttribute('aria-current');
+  });
   window.scrollTo({top:0, behavior:'smooth'});
   closeMob();
   if (page === 'products') {
-    if (anchor) { activeCat = anchor; }
+    if (anchor) { activeCat = anchor; document.getElementById('searchInput').value = ''; }
     renderFilters();
     renderProducts();
   }
@@ -258,16 +269,39 @@ function renderFilters() {
   const container = document.getElementById('catList');
   if (!container) return;
   container.innerHTML = CATS_LIST().map(c =>
-    `<li class="cat-item ${c.id===activeCat?'active':''}" onclick="setFilter('${c.id}')">
+    `<li><button type="button" class="cat-item ${c.id===activeCat?'active':''}" data-category="${c.id}" aria-pressed="${c.id===activeCat}" onclick="setFilter('${c.id}')">
       <span>${c.lbl}</span><span class="cat-cnt">${countFor(c.id)}</span>
-    </li>`).join('');
+    </button></li>`).join('');
+  const mobile = document.getElementById('mobileCategory');
+  mobile.innerHTML = CATS_LIST().map(c => `<option value="${c.id}">${c.lbl} (${countFor(c.id)})</option>`).join('');
+  mobile.value = activeCat;
 }
 
 function setFilter(id) {
+  const fromButton = document.activeElement.matches('.cat-item');
   activeCat = id;
-  document.getElementById('searchInput').value = '';
+  history.replaceState(null, '', '#products/' + id);
   renderFilters();
   renderProducts();
+  if (fromButton) document.querySelector(`[data-category="${id}"]`).focus({preventScroll:true});
+}
+
+function clearSearch() {
+  document.getElementById('searchInput').value = '';
+  renderProducts();
+  document.getElementById('searchInput').focus();
+}
+function resetFilters() {
+  activeCat = 'all';
+  history.replaceState(null, '', '#products/all');
+  document.getElementById('searchInput').value = '';
+  document.getElementById('productSort').value = 'default';
+  renderFilters();
+  renderProducts();
+  document.getElementById('searchInput').focus({preventScroll:true});
+}
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c]));
 }
 
 function emailLink(name) {
@@ -277,14 +311,16 @@ function emailLink(name) {
 }
 
 function card(p, idx) {
-  return `<div class="prod-card" onclick="openModal(${idx})">
+  const name = escapeHTML(p.name);
+  return `<div class="prod-card" data-product-index="${idx}" onclick="openModal(${idx})">
     <div class="pc-img">
-      <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="imgFallback(this)">
+      <img src="${p.img}" alt="${name}" loading="lazy" onerror="imgFallback(this)">
       <div class="pc-badge">${BADGE[p.cat]}</div>
     </div>
     <div class="pc-body">
-      <h3>${p.name}</h3>
+      <h3>${name}</h3>
       <div class="pc-cat">${CAT_LABEL_FOR(p.cat)}</div>
+      <button type="button" class="pc-details" onclick="event.stopPropagation();openModal(${idx})" aria-label="${t('products.card.details')}: ${name}">${t('products.card.details')}</button>
       <div class="pc-acts">
         <a class="bmail" href="${emailLink(p.name)}" onclick="event.stopPropagation()">
           <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>${t('products.card.email')}
@@ -327,15 +363,23 @@ function renderProducts() {
   if (!searchEl) return;
   const q = searchEl.value.trim().toLowerCase();
   let list = PRODUCTS.map((p,i)=>({p,i})).filter(({p}) => activeCat==='all' || p.cat===activeCat);
-  if (q) list = list.filter(({p}) => p.name.toLowerCase().includes(q));
+  if (q) list = list.filter(({p}) => {
+    const text = `${p.name} ${CAT_LABEL_FOR(p.cat)} ${BADGE[p.cat]}`.toLowerCase();
+    return q.split(/\s+/).every(word => text.includes(word));
+  });
+  const sort = document.getElementById('productSort').value;
+  if (sort !== 'default') list.sort((a,b) => a.p.name.localeCompare(b.p.name, 'en', {numeric:true}) * (sort === 'za' ? -1 : 1));
+  document.getElementById('searchClear').hidden = !searchEl.value;
+  document.getElementById('resetFilters').hidden = activeCat === 'all' && !searchEl.value && sort === 'default';
   document.getElementById('catHeading').textContent = CAT_LABEL_FOR(activeCat);
-  document.getElementById('resultCount').innerHTML = `${t('products.resultsShowing')} <strong>${list.length}</strong> ${t('products.resultsFor')}${q?` ${t('products.resultsForQuery')} "${q}"`:''}`
+  document.getElementById('resultCount').innerHTML = `${t('products.resultsShowing')} <strong>${list.length}</strong> ${t('products.resultsFor')}${q?` ${t('products.resultsForQuery')} “${escapeHTML(searchEl.value.trim())}”`:''}`
   const container = document.getElementById('productContainer');
   if (!list.length) {
     container.innerHTML = `<div class="empty-st">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="12"/><line x1="11" y1="15" x2="11.01" y2="15"/></svg>
-      <h3>${t('products.empty.title')}</h3>
-      <p>${t('products.empty.desc')}</p>
+      <h3>${t(q ? 'products.noMatch.title' : 'products.empty.title')}</h3>
+      <p>${t(q ? 'products.noMatch.desc' : 'products.empty.desc')}</p>
+      ${q ? `<button class="btn-s" onclick="resetFilters()">${t('products.reset')}</button>` : ''}
       <a class="empty-email" href="mailto:${EMAIL}?subject=${encodeURIComponent(t('products.empty.emailSubject'))}">${t('products.empty.askEmail')}</a></div>` + catalogBar();
   } else {
     container.innerHTML = `<div class="prod-grid">${list.map(({p,i})=>card(p,i)).join('')}</div>` + catalogBar();
@@ -343,15 +387,17 @@ function renderProducts() {
 }
 
 // ── MODAL ──
+let modalTrigger = null;
 function openModal(idx) {
   const p = PRODUCTS[idx];
   if (!p) return;
+  modalTrigger = document.activeElement.closest('.prod-card')?.querySelector('.pc-details') || document.querySelector(`[data-product-index="${idx}"] .pc-details`);
   document.getElementById('modalInner').innerHTML = `
-    <button class="modal-x" onclick="closeModal()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    <div class="modal-img"><img src="${p.img}" alt="${p.name}" onerror="imgFallback(this)"></div>
+    <div class="modal-top"><span>${t('products.card.details')}</span><button class="modal-x" onclick="closeModal()" aria-label="${t('modal.close')}"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    <div class="modal-img"><img src="${p.img}" alt="${escapeHTML(p.name)}" onerror="imgFallback(this)"></div>
     <div class="modal-body">
       <span class="m-badge">${BADGE[p.cat]}</span>
-      <h2>${p.name}</h2>
+      <h2 id="modalTitle">${escapeHTML(p.name)}</h2>
       <div class="m-cat">${t('modal.category')} ${CAT_LABEL_FOR(p.cat)}</div>
       <div class="m-sec"><h4>${t('modal.description')}</h4><p>${PROD_DESC(p)}</p></div>
       <div class="m-sec"><h4>${t('modal.specs')}</h4>
@@ -369,10 +415,22 @@ function openModal(idx) {
         <a class="m-tel" href="tel:${TEL}"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.29 6.29l1.28-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>${t('modal.tel')}</a>
       </div>
     </div>`;
-  document.getElementById('productModal').classList.add('open');
+  const dialog = document.getElementById('productModal');
+  dialog.classList.add('open');
+  dialog.showModal();
+  document.getElementById('modalInner').scrollTop = 0;
   document.body.style.overflow = 'hidden';
+  dialog.querySelector('.modal-x').focus({preventScroll:true});
 }
-function closeModal() { document.getElementById('productModal').classList.remove('open'); document.body.style.overflow = ''; }
+function closeModal() {
+  const dialog = document.getElementById('productModal');
+  if (!dialog.open) return;
+  dialog.close();
+  dialog.classList.remove('open');
+  document.body.style.overflow = '';
+  if (modalTrigger && modalTrigger.isConnected) modalTrigger.focus({preventScroll:true});
+}
+document.getElementById('productModal').addEventListener('cancel', e => { e.preventDefault(); closeModal(); });
 
 // ── CONTACT FORM ──
 function buildMsg() {
@@ -510,6 +568,26 @@ document.addEventListener('keydown', e => {
   closeMob();
 });
 
+// Keyboard access for existing non-link navigation cards.
+document.querySelectorAll('.partner-card, .breadcrumb span[onclick]').forEach(el => {
+  el.tabIndex = 0;
+  el.setAttribute('role', 'button');
+  el.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+  });
+});
+function restoreRoute() {
+  const [page, anchor] = location.hash.slice(1).split('/');
+  const validPage = document.getElementById('page-' + page) ? page : 'home';
+  const validAnchor = validPage === 'products' ? (CATS_LIST().some(c => c.id === anchor) ? anchor : 'all') : (anchor === 'about' ? anchor : undefined);
+  showPage(validPage, validAnchor, false);
+}
+window.addEventListener('popstate', restoreRoute);
 // init
+const homeLink = document.querySelector('.nav-links a[data-page="home"]');
+homeLink.classList.add('active');
+homeLink.setAttribute('aria-current', 'page');
 renderFilters();
 renderProducts();
+
+if (location.hash) restoreRoute();

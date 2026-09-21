@@ -7,6 +7,24 @@
 
 const I18N = {
 en: {
+  "quick.products": "Explore the catalog",
+  "quick.productsDesc": "Find products by name or brand",
+  "quick.locations": "Find our offices",
+  "quick.locationsDesc": "Our network across Indonesia",
+  "quick.contact": "Talk to our team",
+  "quick.contactDesc": "Product inquiries and quotations",
+  "products.search.hint": "Search by product name or brand...",
+  "products.search.clear": "Clear search",
+  "products.reset": "Reset filters",
+  "products.sort": "Sort by",
+  "products.sort.default": "Catalog order",
+  "products.sort.az": "Name: A–Z",
+  "products.sort.za": "Name: Z–A",
+  "products.card.details": "Details",
+  "products.noMatch.title": "No matching products",
+  "products.noMatch.desc": "Try another keyword or reset your filters to explore the full catalog.",
+  "modal.close": "Close product details",
+
   "splash.welcome": "Welcome to",
 
   "topbar.location": "Our Location",
@@ -279,6 +297,24 @@ en: {
   "form.emailSubject": "Message from Website",
 },
 zh: {
+  "quick.products": "浏览产品目录",
+  "quick.productsDesc": "按产品名称或品牌查找",
+  "quick.locations": "查找我们的办事处",
+  "quick.locationsDesc": "遍布印度尼西亚的服务网络",
+  "quick.contact": "联系我们的团队",
+  "quick.contactDesc": "产品咨询与报价",
+  "products.search.hint": "搜索产品名称或品牌...",
+  "products.search.clear": "清除搜索",
+  "products.reset": "重置筛选",
+  "products.sort": "排序方式",
+  "products.sort.default": "目录顺序",
+  "products.sort.az": "名称：A–Z",
+  "products.sort.za": "名称：Z–A",
+  "products.card.details": "详情",
+  "products.noMatch.title": "未找到匹配产品",
+  "products.noMatch.desc": "请尝试其他关键词，或重置筛选以浏览完整目录。",
+  "modal.close": "关闭产品详情",
+
   "splash.welcome": "欢迎来到",
 
   "topbar.location": "我们的位置",
@@ -551,6 +587,24 @@ zh: {
   "form.emailSubject": "来自网站的留言",
 },
 id: {
+  "quick.products": "Jelajahi katalog",
+  "quick.productsDesc": "Cari produk berdasarkan nama atau merek",
+  "quick.locations": "Temukan kantor kami",
+  "quick.locationsDesc": "Jaringan kami di seluruh Indonesia",
+  "quick.contact": "Hubungi tim kami",
+  "quick.contactDesc": "Informasi produk dan penawaran harga",
+  "products.search.hint": "Cari nama produk atau merek...",
+  "products.search.clear": "Hapus pencarian",
+  "products.reset": "Reset filter",
+  "products.sort": "Urutkan",
+  "products.sort.default": "Urutan katalog",
+  "products.sort.az": "Nama: A–Z",
+  "products.sort.za": "Nama: Z–A",
+  "products.card.details": "Detail",
+  "products.noMatch.title": "Produk tidak ditemukan",
+  "products.noMatch.desc": "Coba kata kunci lain atau reset filter untuk melihat seluruh katalog.",
+  "modal.close": "Tutup detail produk",
+
   "splash.welcome": "Selamat Datang di",
 
   "topbar.location": "Lokasi Kami",
@@ -856,7 +910,11 @@ function applyLang(lang) {
     if (I18N[lang] && I18N[lang][key] !== undefined) el.alt = I18N[lang][key];
   });
 
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => el.setAttribute('aria-label', t(el.dataset.i18nAria)));
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+    b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
+  });
 
   if (typeof renderFilters === 'function') renderFilters();
   if (typeof renderProducts === 'function') renderProducts();
