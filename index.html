@@ -135,7 +135,7 @@
   <div class="hero-stats-float" id="heroStats">
     <div><div class="hs-num"><span class="cnt" data-count="200">200</span><span>+</span></div><div class="hs-lbl" data-i18n="stat.hospitalsServed">Hospitals Served</div></div>
     <div><div class="hs-num"><span class="cnt" data-count="12">12</span><span>+</span></div><div class="hs-lbl" data-i18n="stat.yearsExperience">Years of Experience</div></div>
-    <div><div class="hs-num"><span class="cnt" data-count="4">4</span></div><div class="hs-lbl" data-i18n="stat.internationalBrands">International Brands</div></div>
+    <div><div class="hs-num"><span class="cnt" data-count="15">15</span><span>+</span></div><div class="hs-lbl" data-i18n="stat.internationalBrands">International Brands</div></div>
     <div><div class="hs-num"><span class="cnt" data-count="34">34</span><span>+</span></div><div class="hs-lbl" data-i18n="stat.citiesReached">Cities Reached</div></div>
   </div>
 
@@ -165,9 +165,66 @@
         <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><h3 data-i18n="home.why.c5.title">After-Sales Support</h3><p data-i18n="home.why.c5.desc">Our customer service team is ready to handle any issue quickly and precisely, maintaining customer satisfaction and our partners' reputation.</p></div>
         <div class="why-card"><div class="why-ic"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><h3 data-i18n="home.why.c6.title">Fast & Precise Delivery</h3><p data-i18n="home.why.c6.desc">A fast and accurate shipping process, ensuring products arrive on time and to specification at your facility.</p></div>
       </div>
-      <div class="cert-strip reveal">
-        <span class="cert-chip"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9,12 11,14 15,10"/></svg>ISO 9001:2015 Certified</span>
-        <span class="cert-chip"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9,12 11,14 15,10"/></svg><span data-i18n="home.why.cdakb">CDAKB Certified – Medical Device Distributor</span></span>
+      <div class="cred" id="credentials">
+        <div class="cred-hd reveal">
+          <div><div class="eyebrow" data-i18n="cred.eyebrow">Certified &amp; Recognised</div><h3 class="cred-title" data-i18n="cred.title">Credentials you can verify</h3></div>
+          <p class="cred-desc" data-i18n="cred.desc">Our quality system and distribution practices are audited by independent and government bodies. Open any certificate to see the original document.</p>
+        </div>
+        <div class="cred-grid reveal-group">
+          <article class="cred-card">
+            <button type="button" class="cred-doc" onclick="openCert('iso')" aria-label="ISO 9001:2015">
+              <img class="cd-back" src="assets/certs/iso-9001-ukas.jpg" alt="" loading="lazy">
+              <img class="cd-front" src="assets/certs/iso-9001-kan.jpg" alt="ISO 9001:2015 certificate issued by Bureau Veritas" data-i18n-alt="cred.iso.alt" loading="lazy">
+              <span class="cd-zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg></span>
+            </button>
+            <div class="cred-body">
+              <span class="cred-kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg><span data-i18n="cred.iso.kicker">International standard</span></span>
+              <h4 class="cred-name">ISO 9001:2015</h4>
+              <p class="cred-full" data-i18n="cred.iso.full">Quality Management System</p>
+              <dl class="cred-meta">
+                <div><dt data-i18n="cred.k.issuer">Issued by</dt><dd>Bureau Veritas Certification</dd></div>
+                <div><dt data-i18n="cred.k.scope">Scope</dt><dd data-i18n="cred.iso.scope">Distributor of Medical Devices</dd></div>
+                <div><dt data-i18n="cred.k.accred">Accreditation</dt><dd>KAN · UKAS</dd></div>
+              </dl>
+              <button type="button" class="cred-btn" onclick="openCert('iso')"><span data-i18n="cred.view">View certificates</span><span class="cred-count">2</span></button>
+            </div>
+          </article>
+          <article class="cred-card">
+            <button type="button" class="cred-doc" onclick="openCert('cdakb')" aria-label="CDAKB">
+              <img class="cd-back" src="assets/certs/cdakb-medan.jpg" alt="" loading="lazy">
+              <img class="cd-front" src="assets/certs/cdakb-head-office.jpg" alt="CDAKB certificate for PT Wego Medika Indonesia" data-i18n-alt="cred.cdakb.alt" loading="lazy">
+              <span class="cd-zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg></span>
+            </button>
+            <div class="cred-body">
+              <span class="cred-kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9,12 11,14 15,10"/></svg><span data-i18n="cred.cdakb.kicker">Government licence</span></span>
+              <h4 class="cred-name">CDAKB</h4>
+              <p class="cred-full" data-i18n="cred.cdakb.full">Good Distribution Practice for Medical Devices</p>
+              <dl class="cred-meta">
+                <div><dt data-i18n="cred.k.issuer">Issued by</dt><dd data-i18n="cred.cdakb.issuer">Government of Indonesia (OSS)</dd></div>
+                <div><dt data-i18n="cred.k.scope">Scope</dt><dd data-i18n="cred.cdakb.scope">Medical Device Distributor</dd></div>
+                <div><dt data-i18n="cred.k.covers">Covers</dt><dd data-i18n="cred.cdakb.covers">Head Office Jakarta &amp; Medan Branch</dd></div>
+              </dl>
+              <button type="button" class="cred-btn" onclick="openCert('cdakb')"><span data-i18n="cred.view">View certificates</span><span class="cred-count">2</span></button>
+            </div>
+          </article>
+        </div>
+        <div class="recog">
+          <h4 class="recog-title reveal" data-i18n="cred.recog.title">Recognition from the healthcare community</h4>
+          <div class="recog-grid reveal-group">
+            <button type="button" class="recog-card" onclick="openCert('bandung')">
+              <span class="rc-img rc-img--photo"><img src="assets/certs/bandung-linear-2026.jpg" alt="Partner Award, Bandung Linear 2026" data-i18n-alt="cred.r1.title" loading="lazy"></span>
+              <span class="rc-body"><span class="rc-date" data-i18n="cred.r1.date">July 2026</span><strong data-i18n="cred.r1.title">Partner Award, Bandung Linear 2026</strong><small>RS Hasan Sadikin Bandung</small></span>
+            </button>
+            <button type="button" class="recog-card" onclick="openCert('fkui')">
+              <span class="rc-img"><img src="assets/certs/fkui-tb-screening-2026.jpg" alt="Appreciation: Free Health Check &amp; TB Screening" data-i18n-alt="cred.r2.title" loading="lazy"></span>
+              <span class="rc-body"><span class="rc-date" data-i18n="cred.r2.date">April 2026</span><strong data-i18n="cred.r2.title">Appreciation: Free Health Check &amp; TB Screening</strong><small data-i18n="cred.r2.issuer">Faculty of Medicine, Universitas Indonesia</small></span>
+            </button>
+            <button type="button" class="recog-card" onclick="openCert('isicam')">
+              <span class="rc-img"><img src="assets/certs/isicam-2024.jpg" alt="Appreciation: 16th ISICAM 2024" data-i18n-alt="cred.r3.title" loading="lazy"></span>
+              <span class="rc-body"><span class="rc-date" data-i18n="cred.r3.date">November 2024</span><strong data-i18n="cred.r3.title">Appreciation: 16th ISICAM 2024</strong><small>Indonesian Society of Interventional Cardiology</small></span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -274,7 +331,7 @@
       <div class="abt-stats reveal-group" id="abtStats">
         <div class="abt-stat"><div class="abt-stat-n"><span class="cnt" data-count="200">200</span><span>+</span></div><div class="abt-stat-l" data-i18n="stat.hospitals">Hospitals</div></div>
         <div class="abt-stat"><div class="abt-stat-n"><span class="cnt" data-count="12">12</span><span>+</span></div><div class="abt-stat-l" data-i18n="stat.yearsOperating">Years in Operation</div></div>
-        <div class="abt-stat"><div class="abt-stat-n"><span class="cnt" data-count="4">4</span></div><div class="abt-stat-l" data-i18n="stat.brandPartners">Brand Partners</div></div>
+        <div class="abt-stat"><div class="abt-stat-n"><span class="cnt" data-count="15">15</span><span>+</span></div><div class="abt-stat-l" data-i18n="stat.brandPartners">Brand Partners</div></div>
         <div class="abt-stat"><div class="abt-stat-n"><span class="cnt" data-count="34">34</span><span>+</span></div><div class="abt-stat-l" data-i18n="stat.citiesReached">Cities Reached</div></div>
       </div>
     </div>
@@ -354,7 +411,7 @@
         <div class="loc-card loc-hq">
           <div class="loc-img"><img src="assets/locations/hq_wisma67.jpg" alt="Head Office, Wisma 67"></div>
           <div class="loc-body">
-            <span class="loc-badge">Head Quarter</span>
+            <span class="loc-badge">Head Office</span>
             <h3>Jakarta Pusat</h3>
             <p>Wisma 67, Jl. Tanah Abang II No. 67 Lt. M, Kel. Petojo Selatan, Kec. Gambir, Jakarta Pusat – 10160<br>T. (021) 350 3011</p>
           </div>
@@ -481,11 +538,10 @@
   </div>
   <section>
     <div class="sec-inner">
-      <div class="sec-hd"><div class="eyebrow" data-i18n="career.foundation.eyebrow">Our Foundation</div><h2 class="sec-title" data-i18n="career.foundation.title">Our Vision, Mission, and Motto</h2><p class="sec-desc" data-i18n="career.foundation.desc">The values that guide every step we take in serving our partners and customers across Indonesia.</p></div>
+      <div class="sec-hd"><div class="eyebrow" data-i18n="career.foundation.eyebrow">Our Foundation</div><h2 class="sec-title" data-i18n="career.foundation.title">Our Vision and Mission</h2><p class="sec-desc" data-i18n="career.foundation.desc">The values that guide every step we take in serving our partners and customers across Indonesia.</p></div>
       <div class="vmm-grid reveal-group" id="vmmGrid">
         <div class="vmm-card"><div class="vmm-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 10v6M1 12h6m10 0h6"/></svg></div><h3 data-i18n="vmm.vision.title">Vision</h3><p data-i18n="vmm.vision.desc">To be a premier provider of affordable, high-quality healthcare solutions.</p></div>
         <div class="vmm-card"><div class="vmm-ic"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg></div><h3 data-i18n="vmm.mission.title">Mission</h3><p data-i18n="vmm.mission.desc">Driven by innovation, we partner with our clients to deliver exceptional healthcare services.</p></div>
-        <div class="vmm-card"><div class="vmm-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3 data-i18n="vmm.motto.title">Motto</h3><p data-i18n-html="vmm.motto.desc"><em>Creating value in healthcare</em> — creating real value in every aspect of the healthcare services we provide.</p></div>
       </div>
     </div>
   </section>
@@ -557,6 +613,9 @@
 </footer>
 
 <!-- ═══════════════ PRODUCT MODAL ═══════════════ -->
+<dialog class="modal-ov cert-ov" id="certModal" aria-labelledby="certTitle" onclick="if(event.target===this)closeCert()">
+  <div class="cert-box" id="certInner"></div>
+</dialog>
 <dialog class="modal-ov" id="productModal" aria-labelledby="modalTitle" onclick="if(event.target===this)closeModal()">
   <div class="modal" id="modalInner"></div>
 </dialog>

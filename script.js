@@ -3,7 +3,6 @@ const EMAIL = "info@wegomedika.com";
 const TEL = "+62213503011";        // href form
 const TEL_DISPLAY = "(021) 350 3011";
 const BASE = "assets/products/";
-const CI = BASE + "WhatsApp-Image-2020-04-07-at-14.01.06-300x150.jpeg";
 
 const PRODUCTS = [
   {name:"Alinity c Instrument",cat:"abbott",img:BASE+"alinity-c-instrument-image-450x240-300x150.png"},
@@ -45,20 +44,22 @@ const PRODUCTS = [
   {name:"ABBOTT Prealbumin 240 T 1E02.24",cat:"abbott",img:BASE+"abbott-prealbumin-240t.jpg",desc:"prod.desc.abPrealbumin"},
   {name:"Perialistic Pump Tubing 91485-01",cat:"abbott",img:BASE+"abbott-perialistic-pump-tubing.jpg",desc:"prod.desc.abPumpTubing"},
   {name:"ALINITY i HBsAg Qualitative II Confirmatory Manual Diluent 8P11.40",cat:"abbott",img:BASE+"abbott-alinity-hbsag-conf-diluent.jpg",desc:"prod.desc.abHbsagDiluent"},
-  {name:"ADROIT Guiding Catheter",cat:"cordis",img:CI},
-  {name:"AVANTI+ Catheter Sheath Introducer",cat:"cordis",img:CI},
-  {name:"BRITE TIP Sheath Introducer",cat:"cordis",img:CI},
-  {name:"CORDIS EXOSEAL Vascular Closure Device",cat:"cordis",img:CI},
-  {name:"CORDIS EXOSEAL Vascular Closure Device / CORDIS PRECISE & PRECISE RX Nitinol Stent System",cat:"cordis",img:CI},
-  {name:"EMERALD Guide Wire",cat:"cordis",img:CI},
-  {name:"HIGH FLOW Angiographic Catheter",cat:"cordis",img:CI},
-  {name:"INFINITI Diagnostic Catheter",cat:"cordis",img:CI},
-  {name:"PRECISER PRO Rx Nitinol Stent System",cat:"cordis",img:CI},
-  {name:"SUPER TORQUE MB Angiographic Catheter",cat:"cordis",img:CI},
-  {name:"SUPER TORQUE Plus Angiographic Catheter",cat:"cordis",img:CI},
-  {name:"SUPER TORQUE Angiographic Catheter",cat:"cordis",img:CI},
-  {name:"TEMPO Angiographic Catheter",cat:"cordis",img:CI},
-  {name:"VISTA BRITE TIP Guiding Catheter",cat:"cordis",img:CI},
+  // Cordis — from "Cordis.pdf" (Wego team), which replaced the 14 name-only
+  // listings previously scraped from wegomedika.com. Real photos and INAPROC
+  // listing titles, in the PDF's own order. Several titles carry a code that
+  // differs from the REF legible on the box in the photo (e.g. INFINITI
+  // 534542T vs REF 534-518T) — the listing title is the client's, left as-is.
+  {name:"INFINITI Diagnostic Catheter ( 534542T )",cat:"cordis",img:BASE+"cordis-infiniti-diagnostic-catheter.jpg",desc:"prod.desc.cordisInfiniti"},
+  {name:"SUPER TORQUE Plus Angiographic Catheter ( 533636 )",cat:"cordis",img:BASE+"cordis-super-torque-plus.jpg",desc:"prod.desc.cordisSuperTorquePlus"},
+  {name:"EMERALD Guidewire ( 502726 )",cat:"cordis",img:BASE+"cordis-emerald-guidewire.jpg",desc:"prod.desc.cordisEmerald"},
+  {name:"AVANTI + Catheter Sheath Introducers ( 504606S )",cat:"cordis",img:BASE+"cordis-avanti-plus-sheath-introducer.jpg",desc:"prod.desc.cordisAvanti"},
+  {name:"VistaBriteTip Guiding Catheter - A ( 67003400 )",cat:"cordis",img:BASE+"cordis-vistabritetip-guiding-catheter.jpg",desc:"prod.desc.cordisVistaBriteTip"},
+  {name:"TEMPO Angiographic Catheter ( 451513H0 )",cat:"cordis",img:BASE+"cordis-tempo-angiographic-catheter.jpg",desc:"prod.desc.cordisTempo"},
+  {name:"ATW All Track Wire Steerable Guidewires",cat:"cordis",img:BASE+"cordis-atw-steerable-guidewire.jpg",desc:"prod.desc.cordisAtw"},
+  {name:"SUPER TORQUE MB Angiographic Catheter ( Item No. 532598B )",cat:"cordis",img:BASE+"cordis-super-torque-mb.jpg",desc:"prod.desc.cordisSuperTorqueMb"},
+  {name:"EXOSEAL Vascular Closure Device ( EX500CE )",cat:"cordis",img:BASE+"cordis-exoseal-vcd.jpg",desc:"prod.desc.cordisExoseal"},
+  {name:"CORDIS BRITE TIP Sheath Introducers ( 401790M )",cat:"cordis",img:BASE+"cordis-brite-tip-sheath-introducer.jpg",desc:"prod.desc.cordisBriteTip"},
+  {name:"PRECISE PRO RX Nitinol Stent System ( PC0630XCE )",cat:"cordis",img:BASE+"cordis-precise-pro-rx-stent.jpg",desc:"prod.desc.cordisPreciseProRx"},
   {name:"1 ml Long with Graduation",cat:"wego",img:BASE+"1-ml-long-with-graduation-300x150.jpg"},
   {name:"1 ml Long Rigid Luer Lock",cat:"wego",img:BASE+"1ml-long-rigid-luer-lock-300x150.jpg"},
   {name:"1 ml Standard with Needle",cat:"wego",img:BASE+"1ml-standard-with-needle-300x150.jpg"},
@@ -185,6 +186,9 @@ const CATALOG_URL = {
   proline: "https://katalog.inaproc.id/prodia-diagnostic-line",
   sansico: "https://katalog.inaproc.id/sansico-natura-resources?catalogueSearch=rapid",
   biosensors: "https://katalog.inaproc.id/biosensors-intervensional-teknologi",
+  // Cordis has no seller storefront of its own on INAPROC — the link the Wego
+  // team supplied with the Cordis PDF is a keyword search across the catalogue.
+  cordis: "https://katalog.inaproc.id/search?keyword=cordis&page=1",
 };
 function catalogLink(p) { return p.url || CATALOG_URL[p.cat] || ""; }
 // Blurb shown in the "see more" bar under the grid. Read straight out of I18N
@@ -432,6 +436,58 @@ function closeModal() {
 }
 document.getElementById('productModal').addEventListener('cancel', e => { e.preventDefault(); closeModal(); });
 
+// ── CERTIFICATE VIEWER ──
+// Credentials block in the Why section. `title` is a literal (certification names
+// aren't translated); `titleKey` is an i18n key. Doc labels are i18n keys.
+const CERTS = {
+  iso:     { title:'ISO 9001:2015', subKey:'cred.iso.full', docs:[
+             { src:'assets/certs/iso-9001-kan.jpg',  label:'cred.doc.isoKan' },
+             { src:'assets/certs/iso-9001-ukas.jpg', label:'cred.doc.isoUkas' } ] },
+  cdakb:   { title:'CDAKB', subKey:'cred.cdakb.full', docs:[
+             { src:'assets/certs/cdakb-head-office.jpg', label:'cred.doc.cdakbHq' },
+             { src:'assets/certs/cdakb-medan.jpg',       label:'cred.doc.cdakbMedan' } ] },
+  bandung: { titleKey:'cred.r1.title', sub:'RS Hasan Sadikin Bandung',
+             docs:[{ src:'assets/certs/bandung-linear-2026.jpg' }] },
+  fkui:    { titleKey:'cred.r2.title', subKey:'cred.r2.issuer',
+             docs:[{ src:'assets/certs/fkui-tb-screening-2026.jpg' }] },
+  isicam:  { titleKey:'cred.r3.title', sub:'Indonesian Society of Interventional Cardiology',
+             docs:[{ src:'assets/certs/isicam-2024.jpg' }] },
+};
+let certTrigger = null;
+function renderCert(id, i, focusTab) {
+  const c = CERTS[id], d = c.docs[i];
+  const title = c.title || t(c.titleKey);
+  const sub = c.subKey ? t(c.subKey) : (c.sub || '');
+  const alt = d.label ? `${title} – ${t(d.label)}` : title;
+  document.getElementById('certInner').innerHTML = `
+    <div class="cert-top"><div><h2 id="certTitle">${escapeHTML(title)}</h2>${sub ? `<p>${escapeHTML(sub)}</p>` : ''}</div>
+      <button class="modal-x" onclick="closeCert()" aria-label="${t('modal.close')}"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+    ${c.docs.length > 1 ? `<div class="cert-tabs" role="tablist">${c.docs.map((x, j) =>
+      `<button type="button" class="cert-tab" role="tab" aria-selected="${j === i}" onclick="renderCert('${id}',${j},true)">${t(x.label)}</button>`).join('')}</div>` : ''}
+    <div class="cert-stage"><img src="${d.src}" alt="${escapeHTML(alt)}"></div>
+    <div class="cert-foot"><a class="cert-full" href="${d.src}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>${t('cred.viewer.full')}</a></div>`;
+  if (focusTab) document.querySelector('#certInner .cert-tab[aria-selected="true"]')?.focus({preventScroll:true});
+}
+function openCert(id) {
+  if (!CERTS[id]) return;
+  certTrigger = document.activeElement;
+  renderCert(id, 0);
+  const dialog = document.getElementById('certModal');
+  dialog.classList.add('open');
+  dialog.showModal();
+  document.body.style.overflow = 'hidden';
+  dialog.querySelector('.modal-x').focus({preventScroll:true});
+}
+function closeCert() {
+  const dialog = document.getElementById('certModal');
+  if (!dialog.open) return;
+  dialog.close();
+  dialog.classList.remove('open');
+  document.body.style.overflow = '';
+  if (certTrigger && certTrigger.isConnected) certTrigger.focus({preventScroll:true});
+}
+document.getElementById('certModal').addEventListener('cancel', e => { e.preventDefault(); closeCert(); });
+
 // ── CONTACT FORM ──
 function buildMsg() {
   const n = (document.getElementById('cf-name')||{value:''}).value.trim();
@@ -565,6 +621,7 @@ document.addEventListener('click', e => {
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
   closeModal();
+  closeCert();
   closeMob();
 });
 

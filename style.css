@@ -506,16 +506,157 @@ section { padding:var(--sp-section) var(--sp-gutter); }
 .why-card h3 { font-size:var(--t-h3); font-weight:700; letter-spacing:-.02em; color:var(--blue-800); margin-bottom:.65rem; line-height:1.3; }
 .why-card p { font-size:var(--t-sm); color:var(--gray-600); line-height:1.7; }
 
-.cert-strip { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:2.75rem; position:relative; z-index:1; }
-.cert-chip {
-  display:inline-flex; align-items:center; gap:9px;
-  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.16);
-  backdrop-filter:blur(8px);
-  border-radius:var(--r-pill); padding:10px 20px; font-size:var(--t-sm); font-weight:600; color:#fff;
-  transition:background var(--dur-fast), border-color var(--dur-fast), transform var(--dur) var(--ease-out);
+/* ── Credentials: certifications + recognition (inside the dark Why section) ── */
+.cred {
+  position:relative; z-index:1;
+  margin-top:clamp(3.5rem, 2.5rem + 3vw, 5.5rem); padding-top:clamp(2.75rem, 2rem + 2vw, 4rem);
+  border-top:1px solid var(--hairline-dark);
 }
-.cert-chip:hover { background:rgba(255,255,255,.13); border-color:rgba(255,255,255,.3); transform:translateY(-2px); }
-.cert-chip svg { width:16px; height:16px; stroke:var(--blue-200); fill:none; stroke-width:2; flex-shrink:0; }
+.cred-hd { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:1.5rem 3rem; align-items:end; margin-bottom:2.25rem; }
+.cred-hd .eyebrow { color:var(--blue-200); }
+.cred-hd .eyebrow::before { background:linear-gradient(90deg,var(--blue-200),transparent); }
+.cred-title {
+  font-family:'Hanken Grotesk',sans-serif; font-weight:800; color:#fff;
+  font-size:clamp(1.7rem, 1.25rem + 1.7vw, 2.45rem); line-height:1.12; letter-spacing:-.03em;
+}
+.cred-desc { color:rgba(255,255,255,.68); font-size:var(--t-body); line-height:1.7; max-width:46ch; }
+
+.cred-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.25rem; }
+.cred-card {
+  position:relative; overflow:hidden; isolation:isolate;
+  display:grid; grid-template-columns:minmax(150px,.72fr) minmax(0,1fr); gap:clamp(1.5rem, 1rem + 1.5vw, 2.25rem); align-items:center;
+  padding:clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem);
+  background:linear-gradient(155deg,#fff 0%,var(--card-tint) 55%,var(--blue-50) 100%);
+  border-radius:var(--r-lg); box-shadow:0 24px 60px rgba(0,0,0,.28);
+  transition:transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+}
+.cred-card::before {
+  content:''; position:absolute; z-index:-1; width:340px; height:340px; border-radius:50%;
+  right:-120px; top:-150px; pointer-events:none;
+  background:radial-gradient(circle, rgba(13,119,189,.14), transparent 65%);
+}
+.cred-card:hover { transform:translateY(-6px); box-shadow:0 32px 70px rgba(0,0,0,.36); }
+
+/* The fanned pair of certificate pages */
+.cred-doc {
+  position:relative; display:block; width:100%; aspect-ratio:1/1.32;
+  border:0; padding:0; background:none; cursor:zoom-in; border-radius:var(--r-xs);
+}
+.cred-doc img {
+  position:absolute; inset:6% 8% 0; width:84%; height:94%; object-fit:cover; object-position:top;
+  background:#fff; border-radius:6px; border:1px solid var(--gray-200);
+  transition:transform var(--dur-slow) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+}
+.cred-doc .cd-back { transform:rotate(7deg) translate(8%,2%); box-shadow:var(--e-2); filter:saturate(.85); }
+.cred-doc .cd-front { transform:rotate(-3deg); box-shadow:var(--e-4); }
+.cred-card:hover .cd-back { transform:rotate(10deg) translate(13%,1%); }
+.cred-card:hover .cd-front { transform:rotate(-1deg) translateY(-4px); }
+.cd-zoom {
+  position:absolute; right:2%; bottom:-4%; width:46px; height:46px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--blue-600); box-shadow:var(--e-blue); border:3px solid #fff;
+  transition:transform var(--dur) var(--ease-spring);
+}
+.cd-zoom svg { width:20px; height:20px; stroke:#fff; fill:none; stroke-width:2.2; stroke-linecap:round; }
+.cred-card:hover .cd-zoom { transform:scale(1.1); }
+.cred-doc:focus-visible { outline:3px solid var(--blue-400); outline-offset:6px; }
+
+.cred-body { min-width:0; display:flex; flex-direction:column; align-items:flex-start; }
+.cred-kicker {
+  display:inline-flex; white-space:nowrap; max-width:100%; align-items:center; gap:7px; margin-bottom:.9rem;
+  padding:5px 12px 5px 9px; border-radius:var(--r-pill);
+  background:var(--blue-50); border:1px solid var(--blue-100); color:var(--blue-700);
+  font-size:var(--t-xs); font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+}
+.cred-kicker svg { width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2; flex-shrink:0; }
+.cred-name {
+  font-family:'Hanken Grotesk',sans-serif; font-weight:800; color:var(--blue-800);
+  font-size:clamp(1.85rem, 1.35rem + 1.6vw, 2.6rem); line-height:1; letter-spacing:-.035em;
+}
+.cred-full { margin-top:.5rem; font-size:var(--t-sm); font-weight:600; color:var(--gray-600); line-height:1.5; }
+.cred-meta { width:100%; margin:1.25rem 0 1.5rem; border-top:1px solid var(--hairline); }
+.cred-meta > div { display:grid; grid-template-columns:7.5rem minmax(0,1fr); gap:.75rem; padding:.6rem 0; border-bottom:1px solid var(--hairline); }
+.cred-meta dt { font-size:var(--t-xs); font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--gray-600); padding-top:.12rem; }
+.cred-meta dd { font-size:var(--t-sm); font-weight:600; color:var(--gray-900); line-height:1.45; overflow-wrap:anywhere; }
+.cred-btn {
+  display:inline-flex; align-items:center; gap:10px; min-height:44px; margin-top:auto;
+  padding:10px 10px 10px 20px; border:0; border-radius:var(--r-pill); cursor:pointer;
+  background:var(--blue-600); color:#fff; box-shadow:var(--sh-btn);
+  font:700 var(--t-sm) 'Hanken Grotesk',sans-serif;
+  transition:background var(--dur-fast), transform var(--dur-fast) var(--ease-out);
+}
+.cred-btn:hover { background:var(--blue-700); transform:translateY(-2px); }
+.cred-count {
+  min-width:26px; height:26px; padding:0 7px; border-radius:var(--r-pill);
+  display:inline-flex; align-items:center; justify-content:center;
+  background:rgba(255,255,255,.2); font-size:var(--t-xs);
+}
+
+/* Recognition row */
+.recog { margin-top:clamp(2.5rem, 2rem + 1.5vw, 3.5rem); }
+.recog-title { font-family:'Hanken Grotesk',sans-serif; font-weight:700; color:#fff; font-size:var(--t-h3); letter-spacing:-.02em; margin-bottom:1.25rem; }
+.recog-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.25rem; }
+.recog-card {
+  display:flex; flex-direction:column; text-align:left; padding:0; cursor:zoom-in; color:#fff; font:inherit;
+  background:rgba(255,255,255,.06); border:1px solid var(--hairline-dark); border-radius:var(--r-md); overflow:hidden;
+  transition:background var(--dur), border-color var(--dur), transform var(--dur) var(--ease-out);
+}
+.recog-card:hover { background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.28); transform:translateY(-5px); }
+.recog-card:focus-visible { outline:3px solid var(--blue-400); outline-offset:3px; }
+.rc-img { display:block; aspect-ratio:16/10; overflow:hidden; background:#fff; }
+.rc-img img { width:100%; height:100%; object-fit:cover; transition:transform var(--dur-slow) var(--ease-out); }
+.recog-card:hover .rc-img img { transform:scale(1.04); }
+.rc-img--photo img { object-position:center 18%; }
+.rc-body { display:flex; flex-direction:column; gap:4px; padding:1.1rem 1.25rem 1.35rem; }
+.rc-date { font-size:var(--t-xs); font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--blue-200); }
+.rc-body strong { font-family:'Hanken Grotesk',sans-serif; font-size:var(--t-body); font-weight:700; line-height:1.35; }
+.rc-body small { font-size:var(--t-xs); color:rgba(255,255,255,.65); line-height:1.5; }
+
+@media (max-width:1080px) {
+  .cred-grid { grid-template-columns:1fr; }
+  .cred-card { grid-template-columns:minmax(150px,240px) minmax(0,1fr); }
+}
+@media (max-width:760px) {
+  .cred-hd { grid-template-columns:1fr; align-items:start; }
+  .recog-grid { grid-template-columns:1fr; }
+  .recog-card { flex-direction:row; align-items:center; }
+  .rc-img { flex:0 0 38%; align-self:stretch; aspect-ratio:auto; }
+}
+@media (max-width:600px) {
+  .cred-card { grid-template-columns:1fr; }
+  .cred-doc { width:62%; margin:0 auto .5rem; }
+  .cred-meta > div { grid-template-columns:1fr; gap:.2rem; }
+}
+
+/* Certificate viewer (native <dialog>, shares .modal-ov overlay) */
+.cert-box {
+  background:#fff; border-radius:var(--r-lg); width:min(900px,100%); max-height:92dvh;
+  display:flex; flex-direction:column; overflow:hidden; box-shadow:0 40px 90px rgba(3,24,38,.45);
+  animation:modalIn .45s var(--ease-out) backwards;
+}
+.cert-top { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:12px 16px 12px 24px; border-bottom:1px solid var(--gray-200); }
+.cert-top h2 { font-family:'Hanken Grotesk',sans-serif; font-weight:800; font-size:1.15rem; color:var(--gray-900); letter-spacing:-.02em; line-height:1.25; }
+.cert-top p { font-size:var(--t-xs); color:var(--gray-600); margin-top:2px; }
+.cert-tabs { display:flex; flex-wrap:wrap; gap:8px; padding:12px 24px; border-bottom:1px solid var(--gray-100); }
+.cert-tab {
+  min-height:38px; padding:7px 16px; border-radius:var(--r-pill); cursor:pointer;
+  border:1.5px solid var(--gray-200); background:#fff; color:var(--gray-800);
+  font:600 var(--t-sm) 'Be Vietnam Pro',sans-serif;
+  transition:border-color var(--dur-fast), background var(--dur-fast), color var(--dur-fast);
+}
+.cert-tab:hover { border-color:var(--blue-400); color:var(--blue-600); }
+.cert-tab[aria-selected="true"] { background:var(--blue-600); border-color:var(--blue-600); color:#fff; }
+.cert-stage { flex:1; min-height:0; overflow:auto; display:flex; align-items:flex-start; justify-content:center; padding:1.5rem; background:var(--gray-100); }
+.cert-stage img { display:block; max-width:100%; max-height:calc(92dvh - 250px); width:auto; height:auto; background:#fff; border-radius:4px; box-shadow:var(--e-3); }
+.cert-foot { display:flex; justify-content:flex-end; padding:12px 24px; border-top:1px solid var(--gray-200); }
+.cert-full { display:inline-flex; align-items:center; gap:8px; min-height:40px; font-size:var(--t-sm); font-weight:600; color:var(--blue-700); text-decoration:none; }
+.cert-full:hover { color:var(--blue-600); text-decoration:underline; }
+.cert-full svg { width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2; }
+@media (max-width:600px) {
+  .modal-ov.cert-ov { padding:.75rem; }
+  .cert-stage { padding:1rem; }
+  .cert-stage img { max-height:none; }
+}
 
 /* ══════════════════════ VALUES ══════════════════════ */
 .values-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.25rem; }
@@ -995,13 +1136,15 @@ section { padding:var(--sp-section) var(--sp-gutter); }
 }
 
 /* National coverage map — opens the page before the office listings. */
+/* The coverage map artwork is full-bleed navy with its own margins baked in,
+   so the card carries no padding — a white gutter would read as a mat board. */
 .branch-map-card {
-  background:#fff; border:1px solid var(--gray-200);
-  border-radius:var(--r-lg); padding:1.25rem; box-shadow:var(--e-2);
+  background:var(--blue-800); border:1px solid var(--gray-200);
+  border-radius:var(--r-lg); overflow:hidden; line-height:0; box-shadow:var(--e-2);
   transition:box-shadow var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
 }
 .branch-map-card:hover { box-shadow:var(--e-4); transform:translateY(-4px); }
-.branch-map-card img { width:100%; height:auto; border-radius:var(--r-md); }
+.branch-map-card img { width:100%; height:auto; display:block; }
 
 /* Text-only location card — the warehouse has no published photos, so it reads
    as a tinted plate with the mark on the left instead of an empty image well. */
@@ -1110,7 +1253,9 @@ section { padding:var(--sp-section) var(--sp-gutter); }
 .map-frame iframe { width:100%; height:440px; border:0; display:block; }
 
 /* ══════════════════════ CAREER ══════════════════════ */
-.vmm-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
+/* auto-fit rather than a fixed 3 — the Motto card was dropped, so the row
+   holds two cards and must not leave an empty third column. */
+.vmm-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.25rem; }
 .vmm-card {
   background:#fff; border:1px solid var(--gray-200); border-radius:var(--r-md); padding:2rem;
   position:relative; overflow:hidden;

@@ -13,7 +13,7 @@ Plain HTML/CSS/JS, opened directly via `file://` (double-click `index.html` work
 - `assets/locations/*.jpg` — real office/branch/warehouse photos, extracted from the company profile PDF (see below).
 - `assets/products/*` — product photos, downloaded from wegomedika.com and self-hosted (commit `69707bb`).
 - `assets/logos/*.png` — brand, partner, and Wego's own logos (`wego-nav.png` for the nav, `wego-full.png` for the splash + footer).
-- `assets/coverage-map.jpg` — national coverage map, cropped from the company profile PDF at native PDF resolution (not a screenshot).
+- `assets/coverage-map.jpg` — national coverage map. Replaced with a newer navy artwork supplied by the user (PNG converted to JPG via PyMuPDF); it is full-bleed and carries the Wego logo and legend baked in, which is why `.branch-map-card` has no padding. Its legend still reads "Head Quarter Office" — that text is inside the image and cannot be edited here.
 
 No npm, no package.json — do not introduce a build step unless explicitly asked.
 
@@ -53,7 +53,7 @@ The contact form now has a **single** action (`sendEmail()`); it still has no ba
 
 ## i18n — three languages (EN default)
 
-`i18n.js` holds one flat `I18N` object with three sibling dictionaries: `en`, `zh` (Mandarin), `id` (Bahasa Indonesia). **All three must carry the identical key set** — currently 267 each. Run the parity check below after every change; it has caught real drift.
+`i18n.js` holds one flat `I18N` object with three sibling dictionaries: `en`, `zh` (Mandarin), `id` (Bahasa Indonesia). **All three must carry the identical key set** — currently 324 each. Run the parity check below after every change; it has caught real drift.
 
 - **EN is the default and the fallback.** `currentLang()` reads `localStorage.lang` and falls back to `'en'`; `t(key)` falls back `current → en → the key string itself`. The literal text in `index.html` is the **EN copy** and must stay in sync with `I18N.en` — it's what shows before `applyLang` runs and if JS dies.
 - **Static markup** is translated by attribute, all handled in `applyLang()`:
@@ -111,11 +111,28 @@ Other script.js additions: scroll-driven nav state (`nav.scrolled`), `.scroll-pr
 
 ## Page inventory
 
-- **Home**: intro splash (first visit of the session) → hero banner → floating stats → Why Wego Medika (dark) + certification strip → Company Values (8 cards) → Our Products (brand distribution, renamed from "Our Partners") → Our Partners (logistics/legal/calibration, logo wall) → About/Vision-Mission (dark) → final CTA. The old "Our Customers" logo wall and "How It Works" sections have both been **removed** — that's why `assets/logos/GGM.png` and `biosensor.png` are now unreferenced.
-- **Products**: sidebar filter (category + search) + product grid + modal detail. `PRODUCTS` array in script.js — 115 items (37 Abbott, 15 WEGO, 14 Cordis, 12 BD, 9 Lorne, 9 Proline, 8 Biosensors, 6 Sansico, 5 Afinion). Two different provenances, don't conflate them: the first 50 (27 Abbott instruments + Cordis + WEGO) mirror the live wegomedika.com catalog 1:1 (see "known content oddity" below) and have **no** per-product description; the 65 newer ones (10 Abbott reagents/consumables, 5 Afinion, 12 BD, 9 Lorne, 9 Proline, 6 Sansico, 8 Biosensors, 6 WEGO) came from PDFs supplied by the Wego team and each carry a `desc` key (see "Per-product descriptions" below). `CATS_LIST()` still offers **`wemed` and `rapid-test`, both with zero products** — deliberately, see Open items.
-- **Locations**: national coverage map → HQ (Jakarta Pusat) → 3 branches (Medan, Makassar, **Surabaya**) → 2 rep offices (Yogyakarta, Semarang) → 1 warehouse (Jakarta Utara). Real photos + addresses from the company profile PDF. HQ is a full-row feature card `.loc-hq` (image left / detail right); branches and rep offices use the standard `.loc-card`. Photos mix portrait and landscape, so `.loc-img img` is `object-fit:cover` to keep the grid uniform. Surabaya was **moved from rep office to branch** — its photo file is still named `rep_surabaya.jpg`, which is expected, not a mismatch. The warehouse is now a **single photo-less `.loc-plain` card** (icon + address); the four `assets/locations/warehouse_*.jpg` files are left in the repo but unreferenced.
-- **Career**: Vision/Mission/Motto cards, hiring positions, apply CTA (email primary + phone secondary).
+- **Home**: intro splash (first visit of the session) → hero banner → floating stats → Why Wego Medika (dark) + Credentials block → Company Values (8 cards) → Our Products (brand distribution, renamed from "Our Partners") → Our Partners (logistics/legal/calibration, logo wall) → About/Vision-Mission (dark) → final CTA. The old "Our Customers" logo wall and "How It Works" sections have both been **removed** — that's why `assets/logos/GGM.png` and `biosensor.png` are now unreferenced.
+- **Products**: sidebar filter (category + search) + product grid + modal detail. `PRODUCTS` array in script.js — 112 items (37 Abbott, 15 WEGO, 12 BD, 11 Cordis, 9 Lorne, 9 Proline, 8 Biosensors, 6 Sansico, 5 Afinion). Two different provenances, don't conflate them: 36 (27 Abbott instruments + 9 WEGO) mirror the live wegomedika.com catalog 1:1 and have **no** per-product description; the other 76 (10 Abbott reagents/consumables, 5 Afinion, 12 BD, 11 Cordis, 9 Lorne, 9 Proline, 6 Sansico, 8 Biosensors, 6 WEGO) came from PDFs supplied by the Wego team and each carry a `desc` key (see "Per-product descriptions" below). `CATS_LIST()` still offers **`wemed` and `rapid-test`, both with zero products** — deliberately, see Open items.
+- **Locations**: national coverage map → HQ (Jakarta Pusat) → 3 branches (Medan, Makassar, **Surabaya**) → 2 rep offices (Yogyakarta, Semarang) → 1 warehouse (Jakarta Utara). Real photos + addresses from the company profile PDF. HQ is a full-row feature card `.loc-hq` (image left / detail right); branches and rep offices use the standard `.loc-card`. The `.loc-badge` labels are plain markup with no `data-i18n` — they are not translated. HQ's badge reads **"Head Office"**, not "Head Quarter": the user asked for it to match the section heading. Photos mix portrait and landscape, so `.loc-img img` is `object-fit:cover` to keep the grid uniform. Surabaya was **moved from rep office to branch** — its photo file is still named `rep_surabaya.jpg`, which is expected, not a mismatch. The warehouse is now a **single photo-less `.loc-plain` card** (icon + address); the four `assets/locations/warehouse_*.jpg` files are left in the repo but unreferenced.
+- **Career**: Vision + Mission cards, hiring positions, apply CTA (email primary + phone secondary). **The Motto card was removed** (user decision) — the section is now "Our Vision and Mission", `vmm.motto.*` is gone from all three dictionaries, and `.vmm-grid` uses `auto-fit` instead of a fixed 3 columns so two cards fill the row. The motto text ("Creating value in healthcare") still appears in the company profile PDF and is baked into the coverage-map artwork; don't read those as a reason to put the card back.
 - **Contact**: info card (phone/email/address + Follow Us row), form (composes a `mailto:`, no backend), embedded Google Map.
+
+## Credentials block (certifications + recognition)
+
+Lives at the bottom of the dark `.why-sec` (`#credentials`), replacing the old pair of small `.cert-chip` pills — the user asked for it to be much more prominent because it is Wego's proof of legitimacy. Two tiers:
+
+- **Certifications**: two large light `.cred-card`s, ISO 9001:2015 and CDAKB. Each shows a fanned pair of the real certificate scans, issuer/scope meta, and a "View certificates" button.
+- **Recognition**: three `.recog-card`s (newest first) — Bandung Linear 2026 partner plaque (RS Hasan Sadikin), FK UI appreciation for the TB screening event (April 2026), ISICAM 2024 appreciation (ISIC).
+
+Every card opens `#certModal`, a native `<dialog>` driven by the `CERTS` map in `script.js` (`openCert(id)` / `renderCert(id, i, focusTab)` / `closeCert()`). Multi-document entries get tabs. To add a document, drop the image in `assets/certs/` and add an entry to `CERTS` plus the card markup.
+
+Sources: the ISO and CDAKB scans come from the company profile PDF (pages 9–11, two ISO certs — KAN- and UKAS-accredited — and CDAKB for HQ and the Medan branch). The recognition items came from the user: `Certificate ISICAM 2022.pdf` (which actually contains **ISICAM 2024**), the FK UI PDF, and a WhatsApp photo of the plaque. The two PDF scans were stored sideways and are rotated during extraction.
+
+⚠️ **The ISO 9001:2015 scans on the site say the certificate expires 29-09-2026**, which has already passed. The card copy deliberately carries no dates, but the scans themselves show it. Replace both `iso-9001-*.jpg` with the renewed certificate when the Wego team supplies it.
+
+⚠️ **`Certificate ISICAM 2023.pdf` is addressed to "CORDIS US CORPP", not Wego**, so it is deliberately **not** on the site. Don't add it as a Wego credential.
+
+Certification names (`ISO 9001:2015`, `CDAKB`), issuer proper names (Bureau Veritas, RS Hasan Sadikin Bandung, ISIC) and `KAN · UKAS` are plain markup, not translated — same rule as brand names.
 
 ## Per-product descriptions
 
@@ -239,6 +256,18 @@ Three things worth knowing, all **left as the client wrote them**:
 
 One deliberate edit: the IVUS Console description's source ends "The following figure shows the structure of the pullback unit." That sentence was **dropped** — it points at a figure that has no counterpart on the site, so it would dangle.
 
+### Cordis (the `cordis` category, 11 items)
+
+From **`Cordis.pdf`** (Wego team). This batch **replaced the whole category** — the 14 name-only listings scraped from wegomedika.com (ADROIT, HIGH FLOW, the combined EXOSEAL/PRECISE title, etc.) are gone, and with them the shared placeholder photo. The `CI` constant in `script.js` that pointed at `WhatsApp-Image-2020-04-07-at-14.01.06-300x150.jpeg` was its only user and has been **deleted**; the jpeg itself is left in `assets/products/` but is now unreferenced.
+
+Diagnostic and guiding catheters, guidewires, sheath introducers, a vascular closure device and a carotid stent. Entries are in the PDF's own order, not alphabetical. Layout is the usual one — image page, then caption page — except pages 14 and 17, where image and caption share a page; `get_images()` order still matches product order.
+
+**Titles frequently disagree with the REF printed on the box in their own photo**, and that is left alone (same policy as the Abbott HBsAg mismatch): INFINITI `534542T` vs REF `534-518T`, SUPER TORQUE Plus `533636` vs `533-545`, EMERALD `502726` vs `502-735`, VistaBriteTip `67003400` vs `670-002-00`, TEMPO `451513H0` vs `451-535H0`, BRITE TIP `401790M` vs `401-890M`, PRECISE PRO RX `PC0630XCE` vs `PC0740XCE`. Only SUPER TORQUE MB matches. The title is the INAPROC listing title, so it wins.
+
+Source language is Indonesian; EN and ZH are translations. Two machine-translation artefacts in the source were **fixed**, because leaving them would read as nonsense: "konfigurasi Prancis" → "konfigurasi French" (it means French *size*, not the country), and SUPER TORQUE MB's "tersedia dalam 5 bahasa Prancis" → "tersedia dalam ukuran 5 French". One dangling cross-reference was dropped from the EXOSEAL text ("Lihat Gambar 1"), since there is no figure on the site.
+
+⚠️ **`~/Downloads/Link Inaproc - Cordis.xlsx` holds per-product INAPROC URLs for 20 Cordis listings**, on **Wego's own storefront** (`katalog.inaproc.id/wego-medika-indonesia/<slug>`) — not a principal's. It covers all 11 products here plus OPTEASE, SABER ×2, SV, AVIATOR, SELUTION ×2, Biopsy Forceps and S.M.A.R.T CONTROL (several of which already sit in the `wego` category). **Not wired up yet** — it was never handed over in a message, so `url:` was left off pending the user's go-ahead. Adding it later is one `url:` key per product.
+
 ### The WEGO extras (6 of the 15 `wego` items)
 
 From **`Untitled document.pdf`** (Wego team) — a Google Docs export, not an INAPROC page dump, so **there is no catalogue URL** for these and no `CATALOG_URL.wego`. That is correct, not an omission.
@@ -265,11 +294,11 @@ Recovery was awkward and is worth understanding, because it says something about
 
 ## Per-product catalogue links
 
-Each product may carry its own `url:"https://..."` in the `PRODUCTS` array. `catalogLink(p)` in `script.js` resolves it as **`p.url` → `CATALOG_URL[p.cat]` → `""`**, and the modal renders the "Official catalogue" section only when the result is non-empty. To wire up a specific product, just add `url:` to that item — nothing else needs touching. A brand with no `CATALOG_URL` entry (currently Cordis and WEGO) simply renders no link.
+Each product may carry its own `url:"https://..."` in the `PRODUCTS` array. `catalogLink(p)` in `script.js` resolves it as **`p.url` → `CATALOG_URL[p.cat]` → `""`**, and the modal renders the "Official catalogue" section only when the result is non-empty. To wire up a specific product, just add `url:` to that item — nothing else needs touching. A brand with no `CATALOG_URL` entry (currently only WEGO) simply renders no link.
 
-`CATALOG_URL` currently has seven entries, all INAPROC seller storefronts: `abbott` → `.../abbott-products-indonesia`, `afinion` → `.../alere-health?catalogueSearch=afinion`, `bd` → `.../becton-dickinson-indonesia`, `lorne` → `.../rafa-topaz-utama?catalogueSearch=lorne`, `proline` → `.../prodia-diagnostic-line`, `sansico` → `.../sansico-natura-resources?catalogueSearch=rapid`, and `biosensors` → `.../biosensors-intervensional-teknologi`. Note two of the seven sit under a **third-party seller** (Alere Health, Rafa Topaz Utama) rather than the brand's own storefront.
+`CATALOG_URL` currently has eight entries: `abbott` → `.../abbott-products-indonesia`, `afinion` → `.../alere-health?catalogueSearch=afinion`, `bd` → `.../becton-dickinson-indonesia`, `lorne` → `.../rafa-topaz-utama?catalogueSearch=lorne`, `proline` → `.../prodia-diagnostic-line`, `sansico` → `.../sansico-natura-resources?catalogueSearch=rapid`, `biosensors` → `.../biosensors-intervensional-teknologi`, and `cordis` → `.../search?keyword=cordis&page=1`. Seven are seller storefronts; **`cordis` is a keyword search instead**, because Cordis has no storefront of its own there — that is the link the Wego team supplied with the Cordis PDF. Note also that two of the storefronts sit under a **third-party seller** (Alere Health, Rafa Topaz Utama) rather than the brand's own.
 
-**The same map also drives the "Click here to see more" bar under the product grid** (`catalogBar()` in script.js, `.cat-note` in style.css). It is **category-scoped**: it renders only while that brand's filter is active (never on "All"), and only if the brand has a `CATALOG_URL` entry — so today it appears under Abbott, Afinion, BD, Biosensors, Lorne, Proline and Sansico, and nowhere else. It also renders under the empty state, which is deliberate: an empty category with a catalogue link still gives the visitor somewhere to go.
+**The same map also drives the "Click here to see more" bar under the product grid** (`catalogBar()` in script.js, `.cat-note` in style.css). It is **category-scoped**: it renders only while that brand's filter is active (never on "All"), and only if the brand has a `CATALOG_URL` entry — so today it appears under Abbott, Afinion, BD, Biosensors, Cordis, Lorne, Proline and Sansico, and nowhere else. It also renders under the empty state, which is deliberate: an empty category with a catalogue link still gives the visitor somewhere to go.
 
 To wire up another brand later, the whole change is:
 
@@ -298,7 +327,7 @@ If the full Abbott range is ever needed on the site, **get the list from the Weg
 
 ## Known content oddity (don't "fix" without checking source)
 
-One Cordis product is literally titled `"CORDIS EXOSEAL Vascular Closure Device / CORDIS PRECISE & PRECISE RX Nitinol Stent System"` in `script.js`. This isn't a scraping bug — verified it's a genuine distinct product on the live wegomedika.com site with its own URL slug, just badly named on their end (likely a copy-paste mistake by whoever manages their WooCommerce store). Left as-is intentionally.
+The one that used to live here — a Cordis listing titled `"CORDIS EXOSEAL Vascular Closure Device / CORDIS PRECISE & PRECISE RX Nitinol Stent System"` — **is gone**, along with the other 13 scraped Cordis entries, replaced by the 11 from `Cordis.pdf` (see the Cordis section above). Kept as a note only so the name isn't "rediscovered" in git history and re-added.
 
 ## Open items — need higher-ups input before proceeding
 
