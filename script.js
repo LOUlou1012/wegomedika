@@ -440,9 +440,6 @@ document.getElementById('productModal').addEventListener('cancel', e => { e.prev
 // Credentials block in the Why section. `title` is a literal (certification names
 // aren't translated); `titleKey` is an i18n key. Doc labels are i18n keys.
 const CERTS = {
-  iso:     { title:'ISO 9001:2015', subKey:'cred.iso.full', docs:[
-             { src:'assets/certs/iso-9001-kan.jpg',  label:'cred.doc.isoKan' },
-             { src:'assets/certs/iso-9001-ukas.jpg', label:'cred.doc.isoUkas' } ] },
   cdakb:   { title:'CDAKB', subKey:'cred.cdakb.full', docs:[
              { src:'assets/certs/cdakb-head-office.jpg', label:'cred.doc.cdakbHq' },
              { src:'assets/certs/cdakb-medan.jpg',       label:'cred.doc.cdakbMedan' } ] },
@@ -522,7 +519,6 @@ revealOnScroll('partnersGrid', '.partner-card');
 revealOnScroll('customersGrid', '.logo-wall-item');
 revealOnScroll('opPartnersGrid', '.logo-wall-item');
 revealOnScroll('locGridHQ', '.loc-card');
-revealOnScroll('locGridBranch', '.loc-card');
 revealOnScroll('locGridRep', '.loc-card');
 revealOnScroll('locGridWarehouse', '.loc-card');
 

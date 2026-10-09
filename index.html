@@ -133,7 +133,7 @@
     <div class="hero-scroll" aria-hidden="true"><span data-i18n="home.hero.scroll">Scroll</span></div>
   </div>
   <div class="hero-stats-float" id="heroStats">
-    <div><div class="hs-num"><span class="cnt" data-count="200">200</span><span>+</span></div><div class="hs-lbl" data-i18n="stat.hospitalsServed">Hospitals Served</div></div>
+    <div><div class="hs-num"><span class="cnt" data-count="255">255</span><span>+</span></div><div class="hs-lbl" data-i18n="stat.hospitalsServed">Hospitals Served</div></div>
     <div><div class="hs-num"><span class="cnt" data-count="12">12</span><span>+</span></div><div class="hs-lbl" data-i18n="stat.yearsExperience">Years of Experience</div></div>
     <div><div class="hs-num"><span class="cnt" data-count="15">15</span><span>+</span></div><div class="hs-lbl" data-i18n="stat.internationalBrands">International Brands</div></div>
     <div><div class="hs-num"><span class="cnt" data-count="34">34</span><span>+</span></div><div class="hs-lbl" data-i18n="stat.citiesReached">Cities Reached</div></div>
@@ -168,27 +168,9 @@
       <div class="cred" id="credentials">
         <div class="cred-hd reveal">
           <div><div class="eyebrow" data-i18n="cred.eyebrow">Certified &amp; Recognised</div><h3 class="cred-title" data-i18n="cred.title">Credentials you can verify</h3></div>
-          <p class="cred-desc" data-i18n="cred.desc">Our quality system and distribution practices are audited by independent and government bodies. Open any certificate to see the original document.</p>
+          <p class="cred-desc" data-i18n="cred.desc">Our distribution practices are licensed by the Indonesian government, and our work is recognised by hospitals and medical societies. Open any certificate to see the original document.</p>
         </div>
         <div class="cred-grid reveal-group">
-          <article class="cred-card">
-            <button type="button" class="cred-doc" onclick="openCert('iso')" aria-label="ISO 9001:2015">
-              <img class="cd-back" src="assets/certs/iso-9001-ukas.jpg" alt="" loading="lazy">
-              <img class="cd-front" src="assets/certs/iso-9001-kan.jpg" alt="ISO 9001:2015 certificate issued by Bureau Veritas" data-i18n-alt="cred.iso.alt" loading="lazy">
-              <span class="cd-zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg></span>
-            </button>
-            <div class="cred-body">
-              <span class="cred-kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg><span data-i18n="cred.iso.kicker">International standard</span></span>
-              <h4 class="cred-name">ISO 9001:2015</h4>
-              <p class="cred-full" data-i18n="cred.iso.full">Quality Management System</p>
-              <dl class="cred-meta">
-                <div><dt data-i18n="cred.k.issuer">Issued by</dt><dd>Bureau Veritas Certification</dd></div>
-                <div><dt data-i18n="cred.k.scope">Scope</dt><dd data-i18n="cred.iso.scope">Distributor of Medical Devices</dd></div>
-                <div><dt data-i18n="cred.k.accred">Accreditation</dt><dd>KAN · UKAS</dd></div>
-              </dl>
-              <button type="button" class="cred-btn" onclick="openCert('iso')"><span data-i18n="cred.view">View certificates</span><span class="cred-count">2</span></button>
-            </div>
-          </article>
           <article class="cred-card">
             <button type="button" class="cred-doc" onclick="openCert('cdakb')" aria-label="CDAKB">
               <img class="cd-back" src="assets/certs/cdakb-medan.jpg" alt="" loading="lazy">
@@ -231,16 +213,20 @@
 
   <section>
     <div class="sec-inner">
-      <div class="sec-hd reveal"><div class="eyebrow" data-i18n="home.values.eyebrow">Company Values</div><h2 class="sec-title" data-i18n="home.values.title">The values we uphold</h2><p class="sec-desc" data-i18n="home.values.desc">Eight core values that shape our work culture and how we serve every partner, customer, and fellow employee.</p></div>
+      <div class="sec-hd reveal"><div class="eyebrow" data-i18n="home.values.eyebrow">Company Values</div><h2 class="sec-title" data-i18n="home.values.title">The values we uphold</h2><p class="sec-desc" data-i18n="home.values.desc">Twelve core values that shape our work culture and how we serve every partner, customer, and fellow employee.</p></div>
       <div class="values-grid" id="valuesGrid">
-        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg></div><h3 data-i18n="value.relationship.title">Relationship</h3><p data-i18n="value.relationship.desc">We strive to create a good respect and fairness in long-term mutual relationship.</p></div>
-        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M8.7 13.7L7 22l5-3 5 3-1.7-8.3"/></svg></div><h3 data-i18n="value.commitment.title">Commitment</h3><p data-i18n="value.commitment.desc">We are dedicated to a high standard of quality in serving our external and internal customers.</p></div>
-        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9,12 11,14 15,10"/></svg></div><h3 data-i18n="value.integrity.title">Integrity</h3><p data-i18n="value.integrity.desc">We are committed to practicing day to day business with honesty & truthfulness — we treat others as we would like to be treated.</p></div>
-        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div><h3 data-i18n="value.leadership.title">Leadership</h3><p data-i18n="value.leadership.desc">Leadership is about how we react on every situation, take initiative & responsibility. Not making excuses.</p></div>
-        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><h3 data-i18n="value.togetherness.title">Togetherness</h3><p data-i18n="value.togetherness.desc">Together, we have the power to solve seemingly unsolvable problems. We do this every time.</p></div>
-        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div><h3 data-i18n="value.simplicity.title">Simplicity</h3><p data-i18n="value.simplicity.desc">It means being uncomplicated, easy to understand.</p></div>
-        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg></div><h3 data-i18n="value.costConsciousness.title">Cost-Consciousness</h3><p data-i18n="value.costConsciousness.desc">Knowing the cost of your decisions — questioning spending, and determining whether it's necessary to meet business requirement.</p></div>
-        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 00-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 000-7.8z"/></svg></div><h3 data-i18n="value.belonging.title">Belonging</h3><p data-i18n="value.belonging.desc">Protecting and caring for one another through open communication, responsiveness, and awareness — built on trust, respect, and accountability. It takes real effort, responsible chumminess, and keeping up with one another, sustained by loyalty, devotion, and solidarity.</p></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></div><h3 data-i18n="value.accuracy.title">Accuracy</h3><p class="value-tag" data-i18n="value.accuracy.tag">Get it right the first time.</p><ul class="value-pts"><li data-i18n="value.accuracy.p1">We check our work with care.</li><li data-i18n="value.accuracy.p2">We use correct and clear data.</li><li data-i18n="value.accuracy.p3">We fix mistakes quickly.</li></ul></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 00-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 000-7.8z"/></svg></div><h3 data-i18n="value.belonging.title">Belonging</h3><p class="value-tag" data-i18n="value.belonging.tag">Feel at home and proud to be part of us.</p><ul class="value-pts"><li data-i18n="value.belonging.p1">We welcome everyone.</li><li data-i18n="value.belonging.p2">We value each voice.</li><li data-i18n="value.belonging.p3">We care for our company like family.</li></ul></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M8.7 13.7L7 22l5-3 5 3-1.7-8.3"/></svg></div><h3 data-i18n="value.commitment.title">Commitment</h3><p class="value-tag" data-i18n="value.commitment.tag">Keep your promises, and finish what you start.</p><ul class="value-pts"><li data-i18n="value.commitment.p1">We do what we say.</li><li data-i18n="value.commitment.p2">We stay focused on our goals.</li><li data-i18n="value.commitment.p3">We give our best, every day.</li></ul></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg></div><h3 data-i18n="value.costConsciousness.title">Cost Consciousness</h3><p class="value-tag" data-i18n="value.costConsciousness.tag">Spend wisely and avoid waste.</p><ul class="value-pts"><li data-i18n="value.costConsciousness.p1">We use resources with care.</li><li data-i18n="value.costConsciousness.p2">We think before we spend.</li><li data-i18n="value.costConsciousness.p3">We look for better, smarter ways.</li></ul></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 00-4 12.7V16h8v-1.3A7 7 0 0012 2z"/></svg></div><h3 data-i18n="value.creativity.title">Creativity</h3><p class="value-tag" data-i18n="value.creativity.tag">Think new ideas and find better ways.</p><ul class="value-pts"><li data-i18n="value.creativity.p1">We ask 'what if?'</li><li data-i18n="value.creativity.p2">We try new ways to solve problems.</li><li data-i18n="value.creativity.p3">We learn from every idea.</li></ul></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><h3 data-i18n="value.doingBetter.title">Doing Better Everyday</h3><p class="value-tag" data-i18n="value.doingBetter.tag">Small steps every day lead to big results.</p><ul class="value-pts"><li data-i18n="value.doingBetter.p1">We learn from every day.</li><li data-i18n="value.doingBetter.p2">We improve step by step.</li><li data-i18n="value.doingBetter.p3">We never stop growing.</li></ul></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9,12 11,14 15,10"/></svg></div><h3 data-i18n="value.integrity.title">Integrity</h3><p class="value-tag" data-i18n="value.integrity.tag">Do the right thing, even when no one is watching.</p><ul class="value-pts"><li data-i18n="value.integrity.p1">We are honest and open.</li><li data-i18n="value.integrity.p2">We keep our promises.</li><li data-i18n="value.integrity.p3">We take responsibility for our work.</li></ul></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div><h3 data-i18n="value.leadership.title">Leadership</h3><p class="value-tag" data-i18n="value.leadership.tag">Lead by example, inspire others to grow.</p><ul class="value-pts"><li data-i18n="value.leadership.p1">We take the first step.</li><li data-i18n="value.leadership.p2">We guide and support our team.</li><li data-i18n="value.leadership.p3">We make wise and fair decisions.</li></ul></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg></div><h3 data-i18n="value.relationship.title">Relationship</h3><p class="value-tag" data-i18n="value.relationship.tag">Build strong and trusted connections.</p><ul class="value-pts"><li data-i18n="value.relationship.p1">We listen and respect others.</li><li data-i18n="value.relationship.p2">We work well as one team.</li><li data-i18n="value.relationship.p3">We care for our partners and patients.</li></ul></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01z"/></svg></div><h3 data-i18n="value.serviceExcellence.title">Service Excellence</h3><p class="value-tag" data-i18n="value.serviceExcellence.tag">Give great service with a caring heart.</p><ul class="value-pts"><li data-i18n="value.serviceExcellence.p1">We listen to our customers.</li><li data-i18n="value.serviceExcellence.p2">We act fast and with care.</li><li data-i18n="value.serviceExcellence.p3">We go the extra mile.</li></ul></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div><h3 data-i18n="value.simplicity.title">Simplicity</h3><p class="value-tag" data-i18n="value.simplicity.tag">Keep things clear and easy to do.</p><ul class="value-pts"><li data-i18n="value.simplicity.p1">We speak in a clear way.</li><li data-i18n="value.simplicity.p2">We keep our process easy.</li><li data-i18n="value.simplicity.p3">We focus on what matters most.</li></ul></div>
+        <div class="value-card"><div class="value-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><h3 data-i18n="value.togetherness.title">Togetherness</h3><p class="value-tag" data-i18n="value.togetherness.tag">We go further when we work as one.</p><ul class="value-pts"><li data-i18n="value.togetherness.p1">We help each other.</li><li data-i18n="value.togetherness.p2">We share ideas and goals.</li><li data-i18n="value.togetherness.p3">We win and learn as one team.</li></ul></div>
       </div>
     </div>
   </section>
@@ -274,23 +260,23 @@
           <span class="partner-link" data-i18n="home.products.viewLink">View products →</span>
         </div>
 
-        <div class="partner-card" onclick="showPage('products','wego')">
-          <div class="partner-logo-wrap" style="background:var(--blue-50);">
-            <svg viewBox="0 0 80 40" width="70"><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-weight="900" font-size="22" fill="#1A5FA8">WEGO</text></svg>
+        <div class="partner-card" onclick="showPage('products','biosensors')">
+          <div class="partner-logo-wrap" style="padding:8px;">
+            <img src="assets/logos/biosensors-intl.png" alt="Biosensors International">
           </div>
-          <h3>WEGO</h3>
-          <p data-i18n="home.products.wego.desc">Manufacturer of high-quality syringes and medical disposables. Precision sterile products for daily clinical needs worldwide.</p>
-          <span class="partner-tag" data-i18n="cat.medicalDisposable">Medical Disposable</span>
+          <h3>Biosensors</h3>
+          <p data-i18n="home.products.biosensors.desc">Interventional cardiology specialist. BioFreedom and BioMatrix stents, drug-coated balloons, and intravascular imaging and physiology systems for the cath lab.</p>
+          <span class="partner-tag">Intervention</span>
           <span class="partner-link" data-i18n="home.products.viewLink">View products →</span>
         </div>
 
-        <div class="partner-card" onclick="showPage('products','wemed')">
+        <div class="partner-card" onclick="showPage('products','bd')">
           <div class="partner-logo-wrap" style="background:var(--gray-50);">
-            <svg viewBox="0 0 90 40" width="80"><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-weight="900" font-size="20" fill="#2C3A4A">WEMED</text></svg>
+            <svg viewBox="0 0 90 40" width="80" role="img" aria-label="Becton Dickinson"><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-weight="900" font-size="24" fill="#2C3A4A">BD</text></svg>
           </div>
-          <h3>WEMED</h3>
-          <p data-i18n="home.products.wemed.desc">Comprehensive disposable medical supplies to support healthcare facility operations. Reliable, affordable, and standardized.</p>
-          <span class="partner-tag" data-i18n="cat.healthcareSupplies">Healthcare Supplies</span>
+          <h3>Becton Dickinson</h3>
+          <p data-i18n="home.products.bd.desc">Global medical technology company. Vascular access, peripheral intervention catheters, anaesthesia needles, and microbiology media for hospitals and laboratories.</p>
+          <span class="partner-tag">Medical Technology</span>
           <span class="partner-link" data-i18n="home.products.viewLink">View products →</span>
         </div>
 
@@ -329,7 +315,7 @@
         </div>
       </div>
       <div class="abt-stats reveal-group" id="abtStats">
-        <div class="abt-stat"><div class="abt-stat-n"><span class="cnt" data-count="200">200</span><span>+</span></div><div class="abt-stat-l" data-i18n="stat.hospitals">Hospitals</div></div>
+        <div class="abt-stat"><div class="abt-stat-n"><span class="cnt" data-count="255">255</span><span>+</span></div><div class="abt-stat-l" data-i18n="stat.hospitals">Hospitals</div></div>
         <div class="abt-stat"><div class="abt-stat-n"><span class="cnt" data-count="12">12</span><span>+</span></div><div class="abt-stat-l" data-i18n="stat.yearsOperating">Years in Operation</div></div>
         <div class="abt-stat"><div class="abt-stat-n"><span class="cnt" data-count="15">15</span><span>+</span></div><div class="abt-stat-l" data-i18n="stat.brandPartners">Brand Partners</div></div>
         <div class="abt-stat"><div class="abt-stat-n"><span class="cnt" data-count="34">34</span><span>+</span></div><div class="abt-stat-l" data-i18n="stat.citiesReached">Cities Reached</div></div>
@@ -421,32 +407,23 @@
 
     <div class="loc-group">
       <div class="loc-group-hd"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg><h2 data-i18n="locations.group.branch">Branch Offices</h2></div>
-      <div class="loc-grid" id="locGridBranch">
-        <div class="loc-card">
-          <div class="loc-img"><img src="assets/locations/branch_medan.jpg" alt="Medan Branch Office"></div>
-          <div class="loc-body">
-            <span class="loc-badge">Branch Office</span>
-            <h3>Medan</h3>
-            <p>Jl. H. Misbah, Komp. Multatuli Indah Blok B No. 32, Kel. Aur, Kec. Medan Maimun, Kota Medan, Sumatera Utara</p>
-          </div>
-        </div>
-        <div class="loc-card">
-          <div class="loc-img"><img src="assets/locations/branch_makassar.jpg" alt="Makassar Branch Office"></div>
-          <div class="loc-body">
-            <span class="loc-badge">Branch Office</span>
-            <h3>Makassar</h3>
-            <p>Komplek Royal Sentraland @BTP, Jl. Poros Moncongloe, Moncong Loe, Kab. Maros, Sulawesi Selatan</p>
-          </div>
-        </div>
-        <div class="loc-card">
-          <div class="loc-img"><img src="assets/locations/rep_surabaya.jpg" alt="Surabaya Branch Office"></div>
-          <div class="loc-body">
-            <span class="loc-badge">Branch Office</span>
-            <h3>Surabaya</h3>
-            <p>Komplek Manyar Megah Indah Plaza Blok K-5, Jl. Ngagel Jaya Selatan, Surabaya 60284</p>
-          </div>
-        </div>
-      </div>
+      <ul class="loc-list reveal-group">
+        <li class="loc-row">
+          <span class="loc-row-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <div class="loc-row-city"><h3>Medan</h3><span>Sumatera Utara</span></div>
+          <p class="loc-row-addr">Jl. H. Misbah, Komp. Multatuli Indah Blok B No. 32, Kel. Aur, Kec. Medan Maimun, Kota Medan, Sumatera Utara</p>
+        </li>
+        <li class="loc-row">
+          <span class="loc-row-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <div class="loc-row-city"><h3>Makassar</h3><span>Sulawesi Selatan</span></div>
+          <p class="loc-row-addr">Komplek Royal Sentraland @BTP, Jl. Poros Moncongloe, Moncong Loe, Kab. Maros, Sulawesi Selatan</p>
+        </li>
+        <li class="loc-row">
+          <span class="loc-row-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <div class="loc-row-city"><h3>Surabaya</h3><span>Jawa Timur</span></div>
+          <p class="loc-row-addr">Komplek Manyar Megah Indah Plaza Blok K-5, Jl. Ngagel Jaya Selatan, Surabaya 60284</p>
+        </li>
+      </ul>
     </div>
 
     <div class="loc-group">
@@ -591,8 +568,8 @@
         <h4 data-i18n="footer.brands">Product Brands</h4>
         <a href="#products/abbott" onclick="showPage('products','abbott');return false">Abbott</a>
         <a href="#products/cordis" onclick="showPage('products','cordis');return false">Cordis</a>
-        <a href="#products/wego" onclick="showPage('products','wego');return false">WEGO</a>
-        <a href="#products/wemed" onclick="showPage('products','wemed');return false">WEMED</a>
+        <a href="#products/biosensors" onclick="showPage('products','biosensors');return false">Biosensors</a>
+        <a href="#products/bd" onclick="showPage('products','bd');return false">Becton Dickinson</a>
       </div>
       <div class="ft-col">
         <h4 data-i18n="footer.contactUs">Contact Us</h4>
